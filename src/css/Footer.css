@@ -1,0 +1,20 @@
+footer {
+  margin-top: 1rem;
+  background: #323232;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+footer p {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+#copyright {
+  font-size: .75rem;
+}
+
+footer a {
+  color: skyblue !important;
+}
