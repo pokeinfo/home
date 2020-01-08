@@ -1,0 +1,34 @@
+#dynamax-button {
+  position: relative;
+  transition: color .3s, border-color .3s;
+  text-align: center;
+  font-weight: 800;
+  padding: .5rem 0;
+  margin: .5rem;
+  border: 2px solid #dcdcdc;
+  border-radius: .5rem;
+}
+
+#dynamax-button.dynamax {
+  color: #fff;
+  border-color: rgba(0,0,0,0);
+}
+
+#dynamax-button::before {
+  content: "";
+  transition: opacity .3s;
+  position: absolute;
+  border-radius: .5rem;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(45deg, #9d2ba7, #bf3a4a);
+  opacity: 0;
+  margin: -2px;
+  z-index: -1;
+}
+
+#dynamax-button.dynamax::before {
+  opacity: 1;
+}
