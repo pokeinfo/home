@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import IVChecker from './components/IVChecker/IVChecker';
-import './App.css';
+import './css/App.css';
 
 class App extends Component {
   render() {
