@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Grid.css';
 
-function createGridStyle({column, row}) {
+function createGridStyle({column, row, gap}) {
   [
     column,
     row,
@@ -17,6 +17,7 @@ function createGridStyle({column, row}) {
   return {
     gridTemplateColumns: column,
     gridTemplateRows: row,
+    gridGap: gap,
   };
 }
 
@@ -24,10 +25,11 @@ const Grid = ({
   children,
   column,
   row,
+  gap,
 }) => (
   <div
     className="grid"
-    style={createGridStyle({column, row})}
+    style={createGridStyle({column, row, gap})}
   >
     {children}
   </div>

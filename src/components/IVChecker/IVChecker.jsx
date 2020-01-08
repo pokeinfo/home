@@ -53,8 +53,11 @@ const StatInput = ({
   };
 
   return (
-    <Grid column="1:2:2">
-      <div>{stat}</div>
+    <Grid column="3.5rem:1:1" gap="1rem">
+      <div style={{
+        marginTop: 'auto',
+        marginBottom: 'auto',
+      }}>{stat}</div>
       <NumberInput
         placeholder={stat + " 실수치"}
         min={1}
@@ -192,7 +195,7 @@ const IVChecker = () => {
           list={pokedex.map(pkm => pkm.name)}
           onChange={event => setPokemon(getInputValue(event))}
         />
-        <Grid column="3:2">
+        <Grid column="3:2" gap="1rem">
           <ListInput
             placeholder="성격"
             list={pokemonNatures.map(nature => nature.name)}
@@ -209,8 +212,8 @@ const IVChecker = () => {
           dynamax={dynamax}
           onChange={dynamax => setDynamax(dynamax)}
         />
-        <Container>
-          <Grid column="1:2:2">
+        <div>
+          <Grid column="3.5rem:1:1" gap="1rem">
             <div />
             <div className="center">실수치</div>
             <div className="center">노력치</div>
@@ -257,7 +260,7 @@ const IVChecker = () => {
               S: set,
             }))}
           />
-        </Container>
+        </div>
       </div>
       <IVResult
         pokemon={pokemon}
