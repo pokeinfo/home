@@ -1,7 +1,7 @@
 input {
   display: block;
-  width: calc(100% - 20px);
-  margin: .5rem;
+  width: 100%;
+  margin: .5rem auto;
   box-sizing : border-box;
 }
 
