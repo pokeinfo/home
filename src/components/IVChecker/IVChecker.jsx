@@ -59,6 +59,7 @@ const StatInput = ({
         placeholder={stat + " 실수치"}
         min={1}
         onChange={eventHandler('realState')}
+        className="center"
       />
       <NumberInput
         placeholder={stat + " 노력치"}
@@ -66,6 +67,7 @@ const StatInput = ({
         max={252}
         defaultValue={pokemonStat.ev}
         onChange={eventHandler('ev')}
+        className="center"
       />
     </Grid>
   );
@@ -210,8 +212,8 @@ const IVChecker = () => {
         <Container>
           <Grid column="1:2:2">
             <div />
-            <div>실수치</div>
-            <div>노력치</div>
+            <div className="center">실수치</div>
+            <div className="center">노력치</div>
           </Grid>
           <StatInput
             stat="HP"
