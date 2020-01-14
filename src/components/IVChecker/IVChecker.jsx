@@ -86,17 +86,24 @@ function calcIV(type, pokemon, dynamax, stat, nature, level) {
   let validIVs = [];
   switch (type) {
     case 'H':
-      validIVs = range.filter(iv => {
-        return stat.realState === (dynamax? 2 : 1) * (
-            Math.floor(
-            (level / 100) * (
-              baseStat * 2
-              + iv
-              + Math.floor(stat.ev / 4)
-            )
-          ) + level + 10
-        );
-      });
+      if (pokemon.index === 292) {
+        // 껍질몬의 경우
+        if (stat.realState === 1) {
+          validIVs = range;
+        }
+      } else {
+        validIVs = range.filter(iv => {
+          return stat.realState === (dynamax? 2 : 1) * (
+              Math.floor(
+              (level / 100) * (
+                baseStat * 2
+                + iv
+                + Math.floor(stat.ev / 4)
+              )
+            ) + level + 10
+          );
+        });
+      }
       break;
 
     case 'A':
