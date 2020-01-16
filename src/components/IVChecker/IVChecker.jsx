@@ -3,8 +3,8 @@ import { NumberInput, ListInput } from '../Input';
 import Grid from '../Grid';
 import Container from '../Container';
 
-import pokedex from '../../pokemon/pokedex.json';
-import pokemonNatures from '../../pokemon/nature.json';
+import pokedex from '../../pokemon/data/pokedex.js';
+import pokemonNatures from '../../pokemon/data/nature.js';
 
 import '../../css/IVChecker/IVChecker.css';
 
