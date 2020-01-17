@@ -153,32 +153,46 @@ const IVResult = ({
   pokemon = findByName(pokedex, pokemon);
   nature = findByName(pokemonNatures, nature);
   return (
-    <Container>
-      <Grid column="1:3">
-        <div>HP</div>
-        <div>{calcIV('H', pokemon, dynamax, stat, nature, level)}</div>
-      </Grid>
-      <Grid column="1:3">
-        <div>공격</div>
-        <div>{calcIV('A', pokemon, dynamax, stat, nature, level)}</div>
-      </Grid>
-      <Grid column="1:3">
-        <div>방어</div>
-        <div>{calcIV('B', pokemon, dynamax, stat, nature, level)}</div>
-      </Grid>
-      <Grid column="1:3">
-        <div>특공</div>
-        <div>{calcIV('C', pokemon, dynamax, stat, nature, level)}</div>
-      </Grid>
-      <Grid column="1:3">
-        <div>특방</div>
-        <div>{calcIV('D', pokemon, dynamax, stat, nature, level)}</div>
-      </Grid>
-      <Grid column="1:3">
-        <div>스피드</div>
-        <div>{calcIV('S', pokemon, dynamax, stat, nature, level)}</div>
-      </Grid>
-    </Container>
+    <div>
+      <h2>결과</h2>
+      <div id="iv-result">
+        <Grid column="3.5rem:1:1">
+          <div />
+          <div>현재 개체값</div>
+          <div>V일때 실수치</div>
+        </Grid>
+        <Grid column="3.5rem:1:1">
+          <div>HP</div>
+          <div>{calcIV('H', pokemon, dynamax, stat, nature, level)}</div>
+          <div>1</div>
+        </Grid>
+        <Grid column="3.5rem:1:1">
+          <div>공격</div>
+          <div>{calcIV('A', pokemon, dynamax, stat, nature, level)}</div>
+          <div>1</div>
+        </Grid>
+        <Grid column="3.5rem:1:1">
+          <div>방어</div>
+          <div>{calcIV('B', pokemon, dynamax, stat, nature, level)}</div>
+          <div>1</div>
+        </Grid>
+        <Grid column="3.5rem:1:1">
+          <div>특공</div>
+          <div>{calcIV('C', pokemon, dynamax, stat, nature, level)}</div>
+          <div>1</div>
+        </Grid>
+        <Grid column="3.5rem:1:1">
+          <div>특방</div>
+          <div>{calcIV('D', pokemon, dynamax, stat, nature, level)}</div>
+          <div>1</div>
+        </Grid>
+        <Grid column="3.5rem:1:1">
+          <div>스피드</div>
+          <div>{calcIV('S', pokemon, dynamax, stat, nature, level)}</div>
+          <div>1</div>
+        </Grid>
+      </div>
+    </div>
   );
 };
 
@@ -195,78 +209,80 @@ const IVChecker = () => {
 
   return (
     <Container id="iv-checker">
-      <h2>개체값 계산기</h2>
       <div>
-        <ListInput
-          placeholder="포켓몬 이름"
-          list={pokedex.map(pkm => pkm.name)}
-          onChange={event => setPokemon(getInputValue(event))}
-        />
-        <Grid column="3:2" gap="1rem">
-          <ListInput
-            placeholder="성격"
-            list={pokemonNatures.map(nature => nature.name)}
-            onChange={event => setNature(getInputValue(event))}
-          />
-          <NumberInput
-            placeholder="레벨"
-            min={1}
-            max={100}
-            onChange={event => setLevel(+getInputValue(event))}
-          />
-        </Grid>
-        <DynamaxButton
-          dynamax={dynamax}
-          onChange={dynamax => setDynamax(dynamax)}
-        />
+        <h2>개체값 계산기</h2>
         <div>
-          <Grid column="3.5rem:1:1" gap="1rem">
-            <div />
-            <div className="center">실수치</div>
-            <div className="center">노력치</div>
+          <ListInput
+            placeholder="포켓몬 이름"
+            list={pokedex.map(pkm => pkm.name)}
+            onChange={event => setPokemon(getInputValue(event))}
+          />
+          <Grid column="3:2" gap="1rem">
+            <ListInput
+              placeholder="성격"
+              list={pokemonNatures.map(nature => nature.name)}
+              onChange={event => setNature(getInputValue(event))}
+            />
+            <NumberInput
+              placeholder="레벨"
+              min={1}
+              max={100}
+              onChange={event => setLevel(+getInputValue(event))}
+            />
           </Grid>
-          <StatInput
-            stat="HP"
-            onChange={set => setPokemonStat(pokemonStat => ({
-              ...pokemonStat,
-              H: set,
-            }))}
+          <DynamaxButton
+            dynamax={dynamax}
+            onChange={dynamax => setDynamax(dynamax)}
           />
-          <StatInput
-            stat="공격"
-            onChange={set => setPokemonStat(pokemonStat => ({
-              ...pokemonStat,
-              A: set,
-            }))}
-          />
-          <StatInput
-            stat="방어"
-            onChange={set => setPokemonStat(pokemonStat => ({
-              ...pokemonStat,
-              B: set,
-            }))}
-          />
-          <StatInput
-            stat="특공"
-            onChange={set => setPokemonStat(pokemonStat => ({
-              ...pokemonStat,
-              C: set,
-            }))}
-          />
-          <StatInput
-            stat="특방"
-            onChange={set => setPokemonStat(pokemonStat => ({
-              ...pokemonStat,
-              D: set,
-            }))}
-          />
-          <StatInput
-            stat="스피드"
-            onChange={set => setPokemonStat(pokemonStat => ({
-              ...pokemonStat,
-              S: set,
-            }))}
-          />
+          <div>
+            <Grid column="3.5rem:1:1" gap="1rem">
+              <div />
+              <div className="center">실수치</div>
+              <div className="center">노력치</div>
+            </Grid>
+            <StatInput
+              stat="HP"
+              onChange={set => setPokemonStat(pokemonStat => ({
+                ...pokemonStat,
+                H: set,
+              }))}
+            />
+            <StatInput
+              stat="공격"
+              onChange={set => setPokemonStat(pokemonStat => ({
+                ...pokemonStat,
+                A: set,
+              }))}
+            />
+            <StatInput
+              stat="방어"
+              onChange={set => setPokemonStat(pokemonStat => ({
+                ...pokemonStat,
+                B: set,
+              }))}
+            />
+            <StatInput
+              stat="특공"
+              onChange={set => setPokemonStat(pokemonStat => ({
+                ...pokemonStat,
+                C: set,
+              }))}
+            />
+            <StatInput
+              stat="특방"
+              onChange={set => setPokemonStat(pokemonStat => ({
+                ...pokemonStat,
+                D: set,
+              }))}
+            />
+            <StatInput
+              stat="스피드"
+              onChange={set => setPokemonStat(pokemonStat => ({
+                ...pokemonStat,
+                S: set,
+              }))}
+            />
+          </div>
         </div>
       </div>
       <IVResult

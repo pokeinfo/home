@@ -32,3 +32,24 @@
 #dynamax-button.dynamax::before {
   opacity: 1;
 }
+
+#iv-result .grid {
+  grid-gap: 1rem;
+}
+
+#iv-result .grid :first-child {
+  margin: auto 0;
+}
+
+#iv-result .grid :nth-child(2),
+#iv-result .grid :nth-child(3) {
+  padding: .3rem;
+  margin: .5rem 0;
+  border-bottom: 2px #dcdcdc solid;
+  text-align: center;
+}
+
+#iv-result .grid:first-child :nth-child(2),
+#iv-result .grid:first-child :nth-child(3) {
+  border: 0;
+}

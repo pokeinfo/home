@@ -10,7 +10,9 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <IVChecker />
+        <article>
+          <IVChecker />
+        </article>
         <Footer />
       </div>
     );
