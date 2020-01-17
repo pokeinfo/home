@@ -143,6 +143,59 @@ function calcIV(type, pokemon, dynamax, stat, nature, level) {
   return (minIV === maxIV)? maxIV : `${minIV}~${maxIV}`;
 }
 
+function getStatIVFull(type, pokemon, dynamax, stat, nature, level) {
+  if (!pokemon || !nature || !level) return "???";
+  const baseStatKey = Array.from('HABCDS').indexOf(type);
+  const baseStat = pokemon.state[baseStatKey];
+  stat = (stat || {})[type] || {};
+  const iv = 31;
+
+  switch (type) {
+    case 'H':
+      if (pokemon.index === 292) {
+        // 껍질몬의 경우
+        return 1;
+      } else {
+        return (dynamax? 2 : 1) * (
+            Math.floor(
+            (level / 100) * (
+              baseStat * 2
+              + iv
+              + Math.floor((stat.ev || 0) / 4)
+            )
+          ) + level + 10
+        );
+      }
+
+    case 'A':
+    case 'B':
+    case 'C':
+    case 'D':
+    case 'S':
+      return Math.floor(
+        Math.floor(
+          (level / 100) * (
+            baseStat * 2
+            + iv
+            + Math.floor((stat.ev || 0) / 4)
+          )
+          + 5
+        ) * (
+          nature.up === type
+            ? 1.1
+            : 1
+        ) * (
+          nature.down === type
+            ? 0.9
+            : 1
+        )
+      );
+
+    default:
+      throw TypeError("Invalid type");
+  }
+}
+
 const IVResult = ({
   pokemon,
   dynamax,
@@ -164,32 +217,32 @@ const IVResult = ({
         <Grid column="3.5rem:1:1">
           <div>HP</div>
           <div>{calcIV('H', pokemon, dynamax, stat, nature, level)}</div>
-          <div>1</div>
+          <div>{getStatIVFull('H', pokemon, dynamax, stat, nature, level)}</div>
         </Grid>
         <Grid column="3.5rem:1:1">
           <div>공격</div>
           <div>{calcIV('A', pokemon, dynamax, stat, nature, level)}</div>
-          <div>1</div>
+          <div>{getStatIVFull('A', pokemon, dynamax, stat, nature, level)}</div>
         </Grid>
         <Grid column="3.5rem:1:1">
           <div>방어</div>
           <div>{calcIV('B', pokemon, dynamax, stat, nature, level)}</div>
-          <div>1</div>
+          <div>{getStatIVFull('B', pokemon, dynamax, stat, nature, level)}</div>
         </Grid>
         <Grid column="3.5rem:1:1">
           <div>특공</div>
           <div>{calcIV('C', pokemon, dynamax, stat, nature, level)}</div>
-          <div>1</div>
+          <div>{getStatIVFull('C', pokemon, dynamax, stat, nature, level)}</div>
         </Grid>
         <Grid column="3.5rem:1:1">
           <div>특방</div>
           <div>{calcIV('D', pokemon, dynamax, stat, nature, level)}</div>
-          <div>1</div>
+          <div>{getStatIVFull('D', pokemon, dynamax, stat, nature, level)}</div>
         </Grid>
         <Grid column="3.5rem:1:1">
           <div>스피드</div>
           <div>{calcIV('S', pokemon, dynamax, stat, nature, level)}</div>
-          <div>1</div>
+          <div>{getStatIVFull('S', pokemon, dynamax, stat, nature, level)}</div>
         </Grid>
       </div>
     </div>
