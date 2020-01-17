@@ -3,6 +3,8 @@ import { NumberInput, ListInput } from '../Input';
 import Grid from '../Grid';
 import Container from '../Container';
 
+import classNames from 'classnames';
+
 import pokedex from '../../pokemon/data/pokedex.js';
 import pokemonNatures from '../../pokemon/data/nature.js';
 
@@ -23,7 +25,7 @@ const DynamaxButton = ({
   return (
     <div
       id="dynamax-button"
-      className={dynamax? "dynamax" : ""}
+      className={classNames({ dynamax })}
       onClick={clickEvent}
     >
       다이맥스 : {dynamax? "" : "비"}활성화
