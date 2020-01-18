@@ -1,10 +1,22 @@
 import React, { Component, createElement } from 'react';
 import '../css/Input.css';
 
+function getValueFromEvent(event) {
+  const { target } = event;
+  const { value } = target;
+  return [ value, target ];
+}
+
 class Input extends Component {
   constructor(props) {
     super(props);
-    this.state = props;
+    const { onChange } = props;
+    this.state = { ...props };
+    if (onChange) {
+      this.state.onChange = event => {
+        onChange(...getValueFromEvent(event), event);
+      };
+    }
   }
 
   render() {
@@ -31,20 +43,31 @@ class Input extends Component {
 class TextInput extends Input {
   constructor(props) {
     super(props);
-    this.state = {
-      ...this.state,
-      type: 'text',
-    };
+    this.state.type = 'text';
   }
 }
 
 class NumberInput extends Input {
   constructor(props) {
     super(props);
-    this.state = {
-      ...this.state,
-      type: 'number',
-    };
+    const {
+      min = -Infinity,
+      max = Infinity,
+      onChange
+    } = props;
+    this.state.type = 'number';
+    if (onChange) {
+      this.state.onChange = (event) => {
+        let [ value, target ] = getValueFromEvent(event);
+        if (value.trim() === "" || isNaN(+value)) {
+          value = NaN;
+        } else {
+          value = Math.min(Math.max(+value, min), max);
+          event.target.value = value;
+        }
+        onChange(value, target, event);
+      };
+    }
   }
 }
 

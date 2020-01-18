@@ -1,352 +1,72 @@
 import React, { useState } from 'react';
-import { NumberInput, ListInput } from '../Input';
 import Grid from '../Grid';
 import Container from '../Container';
 
-import classNames from 'classnames';
-
-import pokedex from '../../pokemon/data/pokedex.js';
-import pokemonNatures from '../../pokemon/data/nature.js';
+import PokemonInput from './PokemonInput';
+import NatureInput from './NatureInput';
+import LevelInput from './LevelInput';
+import DynamaxButton from './DynamaxButton';
+import StatInput from './StatInput';
+import IVResult from './IVResult';
 
 import '../../css/IVChecker/IVChecker.css';
 
-function findByName(array, name) {
-  return array.find(object => object.name === name);
-}
-
-const DynamaxButton = ({
-  dynamax,
-  onChange,
-}) => {
-  function clickEvent() {
-    dynamax = !dynamax;
-    onChange(dynamax);
-  }
-  return (
-    <div
-      id="dynamax-button"
-      className={classNames({ dynamax })}
-      onClick={clickEvent}
-    >
-      다이맥스 : {dynamax? "" : "비"}활성화
-    </div>
-  );
-};
-
-const StatInput = ({
-  stat,
-  statKey,
-  onChange,
-}) => {
-  const [ pokemonStat, setPokemonStat ] = useState({
-    realState: 0,
-    ev: 0,
-  });
-
-  const eventHandler = (key) => (event) => {
-    const value = +event.target.value;
-    let newState;
-    setPokemonStat(prevState => {
-      newState = { ...prevState };
-      newState[key] = value;
-      onChange(newState);
-      return newState;
-    });
-  };
-
-  return (
-    <Grid column="3.5rem:1:1" gap="1rem">
-      <div style={{
-        marginTop: 'auto',
-        marginBottom: 'auto',
-      }}>{stat}</div>
-      <NumberInput
-        placeholder={stat + " 실수치"}
-        min={1}
-        onChange={eventHandler('realState')}
-        className="center"
-      />
-      <NumberInput
-        placeholder={stat + " 노력치"}
-        min={0}
-        max={252}
-        defaultValue={pokemonStat.ev}
-        onChange={eventHandler('ev')}
-        className="center"
-      />
-    </Grid>
-  );
-}
-
-function calcIV(type, pokemon, dynamax, stat, nature, level) {
-  const defaultMessage = "???";
-  if (!pokemon || !nature) return defaultMessage;
-  const range = Array(32).fill().map((e, i) => i);
-  const baseStatKey = Array.from('HABCDS').indexOf(type);
-  const baseStat = pokemon.state[baseStatKey];
-  stat = (stat || {})[type] || {};
-  let validIVs = [];
-  switch (type) {
-    case 'H':
-      if (pokemon.index === 292) {
-        // 껍질몬의 경우
-        if (stat.realState === 1) {
-          validIVs = range;
-        }
-      } else {
-        validIVs = range.filter(iv => {
-          return stat.realState === (dynamax? 2 : 1) * (
-              Math.floor(
-              (level / 100) * (
-                baseStat * 2
-                + iv
-                + Math.floor(stat.ev / 4)
-              )
-            ) + level + 10
-          );
-        });
-      }
-      break;
-
-    case 'A':
-    case 'B':
-    case 'C':
-    case 'D':
-    case 'S':
-      validIVs = range.filter(iv => {
-        return stat.realState === Math.floor(
-          Math.floor(
-            (level / 100) * (
-              baseStat * 2
-              + iv
-              + Math.floor(stat.ev / 4)
-            )
-            + 5
-          ) * (
-            nature.up === type
-              ? 1.1
-              : 1
-          ) * (
-            nature.down === type
-              ? 0.9
-              : 1
-          )
-        );
-      });
-      break;
-
-    default:
-      throw TypeError("Invalid type");
-  }
-
-  if (!validIVs.length) return defaultMessage;
-  const minIV = Math.min(...validIVs);
-  const maxIV = Math.max(...validIVs);
-  return (minIV === maxIV)? maxIV : `${minIV}~${maxIV}`;
-}
-
-function getStatIVFull(type, pokemon, dynamax, stat, nature, level) {
-  if (!pokemon || !nature || !level) return "???";
-  const baseStatKey = Array.from('HABCDS').indexOf(type);
-  const baseStat = pokemon.state[baseStatKey];
-  stat = (stat || {})[type] || {};
-  const iv = 31;
-
-  switch (type) {
-    case 'H':
-      if (pokemon.index === 292) {
-        // 껍질몬의 경우
-        return 1;
-      } else {
-        return (dynamax? 2 : 1) * (
-            Math.floor(
-            (level / 100) * (
-              baseStat * 2
-              + iv
-              + Math.floor((stat.ev || 0) / 4)
-            )
-          ) + level + 10
-        );
-      }
-
-    case 'A':
-    case 'B':
-    case 'C':
-    case 'D':
-    case 'S':
-      return Math.floor(
-        Math.floor(
-          (level / 100) * (
-            baseStat * 2
-            + iv
-            + Math.floor((stat.ev || 0) / 4)
-          )
-          + 5
-        ) * (
-          nature.up === type
-            ? 1.1
-            : 1
-        ) * (
-          nature.down === type
-            ? 0.9
-            : 1
-        )
-      );
-
-    default:
-      throw TypeError("Invalid type");
-  }
-}
-
-const IVResult = ({
-  pokemon,
-  dynamax,
-  stat,
-  nature,
-  level,
-}) => {
-  pokemon = findByName(pokedex, pokemon);
-  nature = findByName(pokemonNatures, nature);
-  return (
-    <div>
-      <h2>결과</h2>
-      <div id="iv-result">
-        <Grid column="3.5rem:1:1">
-          <div />
-          <div>현재 개체값</div>
-          <div>V일때 실수치</div>
-        </Grid>
-        <Grid column="3.5rem:1:1">
-          <div>HP</div>
-          <div>{calcIV('H', pokemon, dynamax, stat, nature, level)}</div>
-          <div>{getStatIVFull('H', pokemon, dynamax, stat, nature, level)}</div>
-        </Grid>
-        <Grid column="3.5rem:1:1">
-          <div>공격</div>
-          <div>{calcIV('A', pokemon, dynamax, stat, nature, level)}</div>
-          <div>{getStatIVFull('A', pokemon, dynamax, stat, nature, level)}</div>
-        </Grid>
-        <Grid column="3.5rem:1:1">
-          <div>방어</div>
-          <div>{calcIV('B', pokemon, dynamax, stat, nature, level)}</div>
-          <div>{getStatIVFull('B', pokemon, dynamax, stat, nature, level)}</div>
-        </Grid>
-        <Grid column="3.5rem:1:1">
-          <div>특공</div>
-          <div>{calcIV('C', pokemon, dynamax, stat, nature, level)}</div>
-          <div>{getStatIVFull('C', pokemon, dynamax, stat, nature, level)}</div>
-        </Grid>
-        <Grid column="3.5rem:1:1">
-          <div>특방</div>
-          <div>{calcIV('D', pokemon, dynamax, stat, nature, level)}</div>
-          <div>{getStatIVFull('D', pokemon, dynamax, stat, nature, level)}</div>
-        </Grid>
-        <Grid column="3.5rem:1:1">
-          <div>스피드</div>
-          <div>{calcIV('S', pokemon, dynamax, stat, nature, level)}</div>
-          <div>{getStatIVFull('S', pokemon, dynamax, stat, nature, level)}</div>
-        </Grid>
-      </div>
-    </div>
-  );
-};
+const DEV_MODE = (
+  !process.env.NODE_ENV ||
+  process.env.NODE_ENV === 'development'
+);
 
 const IVChecker = () => {
   const [ dynamax, setDynamax ] = useState(false);
-  const [ level, setLevel ] = useState();
-  const [ pokemon, setPokemon ] = useState();
-  const [ nature, setNature ] = useState();
+  const [ level, setLevel ] = useState(DEV_MODE? 1 : null);
+  const [ pokemon, setPokemon ] = useState(DEV_MODE? "꼬부기" : null);
+  const [ nature, setNature ] = useState(DEV_MODE? "노력" : null);
   const [ pokemonStat, setPokemonStat ] = useState({});
-
-  function getInputValue(event) {
-    return event.target.value;
-  }
 
   return (
     <Container id="iv-checker">
       <div>
         <h2>개체값 계산기</h2>
         <div>
-          <ListInput
-            placeholder="포켓몬 이름"
-            list={pokedex.map(pkm => pkm.name)}
-            onChange={event => setPokemon(getInputValue(event))}
+          <PokemonInput
+            pokemon={pokemon}
+            onChange={setPokemon}
           />
           <Grid column="3:2" gap="1rem">
-            <ListInput
-              placeholder="성격"
-              list={pokemonNatures.map(nature => nature.name)}
-              onChange={event => setNature(getInputValue(event))}
+            <NatureInput
+              nature={nature}
+              onChange={setNature}
             />
-            <NumberInput
-              placeholder="레벨"
-              min={1}
-              max={100}
-              onChange={event => setLevel(+getInputValue(event))}
+            <LevelInput
+              level={level}
+              onChange={setLevel}
             />
           </Grid>
           <DynamaxButton
             dynamax={dynamax}
             onChange={dynamax => setDynamax(dynamax)}
           />
-          <div>
-            <Grid column="3.5rem:1:1" gap="1rem">
-              <div />
-              <div className="center">실수치</div>
-              <div className="center">노력치</div>
-            </Grid>
-            <StatInput
-              stat="HP"
-              onChange={set => setPokemonStat(pokemonStat => ({
-                ...pokemonStat,
-                H: set,
-              }))}
-            />
-            <StatInput
-              stat="공격"
-              onChange={set => setPokemonStat(pokemonStat => ({
-                ...pokemonStat,
-                A: set,
-              }))}
-            />
-            <StatInput
-              stat="방어"
-              onChange={set => setPokemonStat(pokemonStat => ({
-                ...pokemonStat,
-                B: set,
-              }))}
-            />
-            <StatInput
-              stat="특공"
-              onChange={set => setPokemonStat(pokemonStat => ({
-                ...pokemonStat,
-                C: set,
-              }))}
-            />
-            <StatInput
-              stat="특방"
-              onChange={set => setPokemonStat(pokemonStat => ({
-                ...pokemonStat,
-                D: set,
-              }))}
-            />
-            <StatInput
-              stat="스피드"
-              onChange={set => setPokemonStat(pokemonStat => ({
-                ...pokemonStat,
-                S: set,
-              }))}
-            />
-          </div>
+          <Grid column="3.5rem:1:1" gap="1rem">
+            <div />
+            <div className="center">실수치</div>
+            <div className="center">노력치</div>
+          </Grid>
+          <StatInput
+            stat={pokemonStat}
+            onChange={setPokemonStat}
+          />
         </div>
       </div>
-      <IVResult
-        pokemon={pokemon}
-        nature={nature}
-        stat={pokemonStat}
-        dynamax={dynamax}
-        level={level}
-      />
+      <div>
+        <h2>결과</h2>
+        <IVResult
+          pokemon={pokemon}
+          nature={nature}
+          stat={pokemonStat}
+          dynamax={dynamax}
+          level={level}
+        />
+      </div>
     </Container>
   );
 };

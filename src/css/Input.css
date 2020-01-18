@@ -3,6 +3,7 @@ input {
   width: 100%;
   margin: .5rem auto;
   box-sizing : border-box;
+  border-radius: 0;
 }
 
 input[type="text"],
