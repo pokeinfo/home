@@ -1,4 +1,4 @@
-import React, { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import '../css/Input.css';
 
 function getValueFromEvent(event) {
@@ -10,8 +10,11 @@ function getValueFromEvent(event) {
 class Input extends Component {
   constructor(props) {
     super(props);
-    const { onChange } = props;
-    this.state = { ...props };
+    const {
+      onChange,
+      ...rest
+    } = props;
+    this.state = rest;
     if (onChange) {
       this.state.onChange = event => {
         onChange(...getValueFromEvent(event), event);
@@ -23,17 +26,11 @@ class Input extends Component {
     const {
       listID,
       datalistComponent,
+      ...inputPrpos
     } = this.state;
-    const inputPrpos = { ...this.state };
-    delete inputPrpos.listID;
-    delete inputPrpos.datalistComponent;
-    const input = createElement('input', {
-      ...inputPrpos,
-      list: listID,
-    });
     return (
       <div>
-        {input}
+        <input list={listID} {...inputPrpos} />
         {datalistComponent}
       </div>
     );
@@ -53,7 +50,7 @@ class NumberInput extends Input {
     const {
       min = -Infinity,
       max = Infinity,
-      onChange
+      onChange,
     } = props;
     this.state.type = 'number';
     if (onChange) {

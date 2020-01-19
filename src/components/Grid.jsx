@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 import '../css/Grid.css';
 
 import classNames from 'classnames';
@@ -23,22 +23,22 @@ function createGridStyle({column, row, gap}) {
   };
 }
 
-const Grid = (props) => {
-  let { column, row, gap, style, className } = props;
-  className = classNames('grid', className);
-  style = {
+const Grid = ({
+  column,
+  row,
+  gap,
+  style,
+  className,
+  ...rest
+}) => {
+  rest.className = classNames('grid', className);
+  rest.style = {
     ...(style || {}),
     ...createGridStyle({ column, row, gap }),
   };
-  [ column, row, gap ] = [];
-  return createElement('div', {
-    ...props,
-    style,
-    className,
-    column,
-    row,
-    gap,
-  });
+  return (
+    <div {...rest} />
+  );
 }
 
 export default Grid;
