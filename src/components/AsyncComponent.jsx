@@ -18,18 +18,29 @@ class AsyncComponent extends Component {
   async componentDidMount() {
     const { loader, id } = this;
     const promise = loadedModules[id] || loader();
-    const component = await promise;
-    this.setState({
-      isLoading: false,
-      component,
-    });
+    try {
+      const component = await promise;
+      this.setState({
+        isLoading: false,
+        component,
+      });
+    } catch (e) {
+      this.setState({
+        errorMessage: e || "문제가 발생했습니다!",
+      });
+    }
   }
 
   render() {
-    const { isLoading, component } = this.state;
-    const LoadedComponent = isLoading
-                            ? LoadingAnimation
-                            : component;
+    const {
+      isLoading,
+      component,
+      errorMessage,
+    } = this.state;
+    const LoadedComponent
+      = isLoading
+          ? () => <LoadingAnimation errorMessage={errorMessage} />
+          : component;
     return <LoadedComponent />;
   }
 }

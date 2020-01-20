@@ -9,6 +9,10 @@ $pokeball-size: 100px;
   line-height: 0;
   animation: spin 1s infinite;
 
+  &.spinStop {
+    animation: none;
+  }
+
   > :nth-child(1) {
     position: absolute;
     background: red;
