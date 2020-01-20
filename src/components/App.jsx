@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import IVChecker from './components/IVChecker/IVChecker';
+import Header from './Header';
+import Footer from './Footer';
+import IVChecker from './IVChecker/IVChecker';
 
-import styles from './css/components/App.module.scss';
+import styles from '../css/components/App.module.scss';
 
 class App extends Component {
   render() {
