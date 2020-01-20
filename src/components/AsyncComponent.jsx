@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import LoadingAnimation from './LoadingAnimation';
 
-const LoadingAnimation = () => <div>loading...</div>;
 const loadedModules = {};
 
 class AsyncComponent extends Component {

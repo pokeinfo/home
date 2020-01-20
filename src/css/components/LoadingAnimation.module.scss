@@ -1,0 +1,14 @@
+.loadingRing {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  border-radius: 99%;
+  border: #dcdcdc 2px solid;
+  animation: spin 1s infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
