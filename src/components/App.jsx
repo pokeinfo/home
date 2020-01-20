@@ -1,22 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 import Header from './Header';
+import { AsyncDefaultComponent } from './AsyncComponent';
+import Home from './Home/Home';
 import Footer from './Footer';
-import IVChecker from './IVChecker/IVChecker';
 
 import styles from '../css/components/App.module.scss';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <article className={styles.content}>
-          <IVChecker />
-        </article>
-        <Footer />
-      </div>
-    );
-  }
-}
+const AsyncIVChecker = () => (
+  <AsyncDefaultComponent
+    loader={import('./IVChecker/IVChecker')}
+  />
+);
+
+const App = () => (
+  <Router>
+    <Header />
+    <article className={styles.content}>
+      <Switch>
+        <Route path="/iv-checker" component={AsyncIVChecker} />
+        <Route path="/" component={Home} />
+      </Switch>
+    </article>
+    <Footer />
+  </Router>
+);
 
 export default App;
