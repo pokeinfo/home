@@ -1,0 +1,62 @@
+.nav {
+  background: #fff;
+  border-right: 2px solid #eee;
+  padding: .5rem 0;
+
+  .navCloseButton {
+    display: none;
+  }
+
+  &.mobile {
+    position: absolute;
+    transition: right .5s;
+    z-index: 15;
+    right: -120vw;
+    top: 0;
+    width: 100vw;
+    max-width: 550px;
+    height: 100vh;
+    border: 0;
+    &.open {
+      right: 0;
+    }
+    .navCloseButton {
+      display: block;
+    }
+  }
+
+  > a,
+  > div {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: black;
+    text-decoration: none !important;
+
+    &:hover {
+      background: #f3f3f3;
+    }
+
+    svg {
+      color: #dcdcdc;
+    }
+  }
+}
+
+.navOpenButton {
+  cursor: pointer;
+  display: none;
+  font-size: 2rem;
+  &.mobile {
+    display: block;
+  }
+}
+
+.navCloseButton {
+  cursor: pointer;
+  width: 80%;
+  margin: 1rem auto;
+  border-radius: .5rem;
+  background: #dcdcdc !important;
+  text-align: center;
+  font-weight: 800;
+}

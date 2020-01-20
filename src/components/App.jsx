@@ -1,33 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
-  Switch,
-  Route,
 } from "react-router-dom";
 import Header from './Header';
-import { AsyncDefaultComponent } from './AsyncComponent';
-import Home from './Home/Home';
+import Content from './Content';
 import Footer from './Footer';
 
-import styles from '../css/components/App.module.scss';
+class App extends Component {
+  constructor(props) {
+    super(props);
+    const mediaQuery = window.matchMedia('(max-width: 900px)');
+    this.mediaQuery = mediaQuery;
+    this.state = {
+      isMobile: mediaQuery.matches,
+      navOpened: false,
+    };
+  }
 
-const AsyncIVChecker = () => (
-  <AsyncDefaultComponent
-    loader={import('./IVChecker/IVChecker')}
-  />
-);
+  componentDidMount() {
+    const { mediaQuery } = this;
+    mediaQuery.addListener(({ matches }) => {
+      this.setState({
+        isMobile: matches,
+      });
+    });
+  }
 
-const App = () => (
-  <Router>
-    <Header />
-    <article className={styles.content}>
-      <Switch>
-        <Route path="/iv-checker" component={AsyncIVChecker} />
-        <Route path="/" component={Home} />
-      </Switch>
-    </article>
-    <Footer />
-  </Router>
-);
+  render() {
+    const { isMobile, navOpened } = this.state;
+    const navOpenHandler = () => {
+      this.setState({
+        navOpened: !navOpened,
+      });
+    };
+    return (
+      <Router>
+        <Header isMobile={isMobile} onNavButtonClick={navOpenHandler} />
+        <Content isMobile={isMobile} isNavOpen={navOpened} onNavButtonClick={navOpenHandler} />
+        <Footer />
+      </Router>
+    );
+  }
+}
 
 export default App;
