@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 const LoadingAnimation = () => <div>loading...</div>;
+const loadedModules = {};
 
 class AsyncComponent extends Component {
   state = {
@@ -9,13 +10,15 @@ class AsyncComponent extends Component {
 
   constructor(props) {
     super(props);
-    const { loader } = props;
+    const { loader, id } = props;
+    this.id = id;
     this.loader = loader;
   }
 
   async componentDidMount() {
-    const { loader } = this;
-    const component = await loader();
+    const { loader, id } = this;
+    const promise = loadedModules[id] || loader();
+    const component = await promise;
     this.setState({
       isLoading: false,
       component,
