@@ -1,10 +1,39 @@
-.loadingRing {
-  width: 100px;
-  height: 100px;
+$pokeball-size: 100px;
+
+.pokeball {
+  display: block;
   margin: auto;
+  width: $pokeball-size;
   border-radius: 99%;
   border: #dcdcdc 2px solid;
+  line-height: 0;
   animation: spin 1s infinite;
+
+  > :nth-child(1) {
+    position: absolute;
+    background: red;
+    height: $pokeball-size / 2;
+    width: $pokeball-size;
+    z-index: -1;
+    border-top-left-radius: $pokeball-size;
+    border-top-right-radius: $pokeball-size;
+  }
+
+  :nth-child(2) {
+    $dot-size: $pokeball-size / 5;
+    position: absolute;
+    width: $pokeball-size;
+    height: $pokeball-size;
+    div {
+      position: relative;
+      z-index: -1;
+      margin: auto;
+      margin-top: ($pokeball-size - $dot-size) / 2;
+      height: $dot-size;
+      width: $dot-size;
+      background: #fff;
+    }
+  }
 }
 
 @keyframes spin {
