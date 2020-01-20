@@ -6,7 +6,7 @@ import {
 import { AsyncDefaultComponent } from './AsyncComponent';
 import Grid from './Grid';
 import Nav from './Nav';
-import Community from './Community';
+import LoadingAnimation from './LoadingAnimation';
 
 import styles from '../css/components/Content.module.scss';
 
@@ -17,6 +17,13 @@ const AsyncIVChecker = () => (
   />
 );
 
+const AsyncCommunity = () => (
+  <AsyncDefaultComponent
+    id="IVChecker"
+    loader={import('./Community')}
+  />
+);
+
 const Content = ({ isMobile, isNavOpen, onNavButtonClick }) => {
   return (
     <Grid column={isMobile? "1" : "275px:1"}>
@@ -24,7 +31,9 @@ const Content = ({ isMobile, isNavOpen, onNavButtonClick }) => {
       <article className={styles.content}>
         <Switch>
           <Route path="/iv-checker" component={AsyncIVChecker} />
-          <Route path="/" component={Community} />
+          <Route path="/test-loading-animation" component={LoadingAnimation} />
+          <Route path="/" component={AsyncCommunity} exact />
+          <Route path="/" component={() => <div>404</div>} />
         </Switch>
       </article>
     </Grid>

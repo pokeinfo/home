@@ -15,7 +15,7 @@ const PokeballImage = ({ spinStop }) => (
 );
 
 const LoadingAnimation = ({ errorMessage }) => (
-  <Container>
+  <Container className={styles.container}>
     <PokeballImage spinStop={errorMessage} />
     <br />
     <CenteredText>{errorMessage || "불러오는 중..."}</CenteredText>

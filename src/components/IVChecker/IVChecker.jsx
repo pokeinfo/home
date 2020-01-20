@@ -25,9 +25,9 @@ const IVChecker = () => {
   const [ pokemonStat, setPokemonStat ] = useState({});
 
   return (
-    <Container id="iv-checker">
+    <Container>
+      <Title>개체값 계산기</Title>
       <BoxContainer>
-        <Title>개체값 계산기</Title>
         <div>
           <PokemonInput
             pokemon={pokemon}
@@ -59,7 +59,6 @@ const IVChecker = () => {
         </div>
       </BoxContainer>
       <BoxContainer>
-        <Title>결과</Title>
         <IVResult
           pokemon={pokemon}
           nature={nature}

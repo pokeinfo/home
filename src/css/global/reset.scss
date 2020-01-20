@@ -20,3 +20,8 @@ body, h1, h2, h3, h4, h5, h6, p {
 iframe, canvas, img {
   display: block;
 }
+
+hr {
+  border: 0;
+  border-bottom: 2px solid #dcdcdc;
+}

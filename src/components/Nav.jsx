@@ -30,18 +30,24 @@ const NavItem = ({
   to,
   curruntPathName,
   closeNav,
-  icon,
+  icon: Icon,
 }) => {
   const isSamePath = (to === curruntPathName);
+  const className = classNames({
+    [styles.selected]: isSamePath,
+  });
   const RootElement = ({ children }) => isSamePath? (
-    <div>{children}</div>
+    <div className={className}>{children}</div>
   ) : (
-    <Link to={to}>{children}</Link>
+    <Link to={to} className={className}>{children}</Link>
   );
-  const Icon = icon;
   return (
     <RootElement>
-      <Grid column={`${iconSize}px:3`} gap="1rem" onClick={closeNav}>
+      <Grid
+        column={`${iconSize}px:3`}
+        gap="1rem"
+        onClick={closeNav}
+      >
         <Icon fill={isSamePath? "#df1616" : "#323232"} {...iconProps} />
         <VerticalCenterText>{title}</VerticalCenterText>
       </Grid>
