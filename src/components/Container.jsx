@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/Container.css';
+import styles from '../css/components/Container.module.scss';
 
 import classNames from 'classnames';
 
@@ -7,7 +7,7 @@ const Container = ({
   className,
   ...rest
 }) => {
-  rest.className = classNames(className, 'container');
+  rest.className = classNames(styles.container, className);
   return (
     <div {...rest} />
   );

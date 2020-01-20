@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/Grid.css';
+import styles from '../css/components/Grid.module.scss';
 
 import classNames from 'classnames';
 
@@ -31,7 +31,7 @@ const Grid = ({
   className,
   ...rest
 }) => {
-  rest.className = classNames('grid', className);
+  rest.className = classNames(styles.grid, className);
   rest.style = {
     ...(style || {}),
     ...createGridStyle({ column, row, gap }),

@@ -1,0 +1,21 @@
+.footer {
+  min-height: 20vh;
+  margin-top: 1rem;
+  background: #323232;
+  color: white;
+  padding: 2rem 1rem;
+
+  p {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+
+  a {
+    color: skyblue !important;
+  }
+}
+
+.copyright {
+  font-size: .75rem;
+}

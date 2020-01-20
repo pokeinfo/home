@@ -1,0 +1,21 @@
+.input {
+  display: block;
+  width: 100%;
+  margin: .5rem auto;
+  box-sizing : border-box;
+  border-radius: 0;
+
+  &[type="text"],
+  &[type="number"],
+  &[list] {
+    padding: .3rem 0;
+    border: 0;
+    border-bottom: 2px solid #dcdcdc;
+    font-size: 1rem;
+
+    &:focus {
+      outline: 0;
+      border-bottom-color: #60dfdf;
+    }
+  }
+}

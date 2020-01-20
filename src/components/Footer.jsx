@@ -1,8 +1,8 @@
 import React from 'react';
-import '../css/Footer.css';
+import styles from '../css/components/Footer.module.scss';
 
 const Footer = () => (
-  <footer>
+  <footer className={styles.footer}>
     <p>
       <a
         href="https://github.com/pokeinfo/home"
@@ -12,7 +12,7 @@ const Footer = () => (
         View source on Github
       </a>
     </p>
-    <p id="copyright">
+    <p className={styles.copyright}>
       Copyright 2019. Seung hyun Hwang, All rights reserved.
     </p>
   </footer>

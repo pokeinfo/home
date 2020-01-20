@@ -9,8 +9,6 @@ import DynamaxButton from './DynamaxButton';
 import StatInput from './StatInput';
 import IVResult from './IVResult';
 
-import '../../css/IVChecker/IVChecker.css';
-
 const DEV_MODE = (
   !process.env.NODE_ENV ||
   process.env.NODE_ENV === 'development'

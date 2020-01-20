@@ -1,12 +1,12 @@
 import React from 'react';
-import '../css/Header.css';
+import styles from '../css/components/Header.module.scss';
 
 const Header = () => (
   <div>
-    <header>
+    <header className={styles.header}>
       <h1>Pokè Info</h1>
     </header>
-    <div id="header-safe-zone" />
+    <div className={styles.headerSafeZone} />
   </div>
 );
 

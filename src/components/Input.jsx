@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import '../css/Input.css';
+import styles from '../css/components/Input.module.scss';
+
+import classNames from 'classnames';
 
 function getValueFromEvent(event) {
   const { target } = event;
@@ -10,11 +12,16 @@ function getValueFromEvent(event) {
 class Input extends Component {
   constructor(props) {
     super(props);
-    const {
+    let {
       onChange,
+      className,
       ...rest
     } = props;
-    this.state = rest;
+    className = classNames(styles.input, className);
+    this.state = {
+      className,
+      ...rest,
+    };
     if (onChange) {
       this.state.onChange = event => {
         onChange(...getValueFromEvent(event), event);

@@ -1,6 +1,8 @@
 import React from 'react';
 import Grid from '../Grid';
 
+import styles from '../../css/components/IVChecker/IVResult.module.scss';
+
 import pokedex from '../../pokemon/data/pokedex';
 import pokemonNatures from '../../pokemon/data/nature';
 import calcRealStat from '../../pokemon/calcRealStat';
@@ -82,7 +84,7 @@ const IVResult = ({
     Result,
   } = IVResult;
   return (
-    <div id="iv-result">
+    <div className={styles.IVResult}>
       <ResultGrid>
         <div />
         <div>현재 개체값</div>
@@ -99,7 +101,7 @@ const IVResult = ({
 };
 
 IVResult.ResultGrid = ({ children }) => (
-  <Grid column="3.5rem:1:1">
+  <Grid column="3.5rem:1:1" className={styles.resultGrid}>
     {children}
   </Grid>
 );

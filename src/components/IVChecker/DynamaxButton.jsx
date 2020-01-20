@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import styles from '../../css/components/IVChecker/DynamaxButton.module.scss';
+
 const DynamaxButton = ({
   dynamax,
   onChange,
@@ -9,10 +11,15 @@ const DynamaxButton = ({
     dynamax = !dynamax;
     onChange(dynamax);
   }
+  const className = classNames(
+    styles.dynamaxButton,
+    {
+      [styles.dynamax]: dynamax,
+    },
+  );
   return (
     <div
-      id="dynamax-button"
-      className={classNames({ dynamax })}
+      className={className}
       onClick={clickEvent}
     >
       다이맥스 : {dynamax? "" : "비"}활성화
