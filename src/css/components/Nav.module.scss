@@ -8,7 +8,7 @@
   }
 
   &.mobile {
-    position: absolute;
+    position: fixed;
     transition: right .5s;
     z-index: 15;
     right: -120vw;
