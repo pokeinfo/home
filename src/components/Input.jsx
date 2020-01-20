@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import styles from '../css/components/Input.module.scss';
-
 import classNames from 'classnames';
+import styles from '../css/components/Input.module.scss';
 
 function getValueFromEvent(event) {
   const { target } = event;
   const { value } = target;
-  return [ value, target ];
+  const setValue = value => target.value = value;
+  return [ value, target, event, setValue ];
 }
 
 class Input extends Component {
@@ -24,7 +24,7 @@ class Input extends Component {
     };
     if (onChange) {
       this.state.onChange = event => {
-        onChange(...getValueFromEvent(event), event);
+        onChange(...getValueFromEvent(event));
       };
     }
   }
@@ -62,12 +62,12 @@ class NumberInput extends Input {
     this.state.type = 'number';
     if (onChange) {
       this.state.onChange = (event) => {
-        let [ value, target ] = getValueFromEvent(event);
+        let [ value, target, , setValue ] = getValueFromEvent(event);
         if (value.trim() === "" || isNaN(+value)) {
           value = NaN;
         } else {
           value = Math.min(Math.max(+value, min), max);
-          event.target.value = value;
+          setValue(value);
         }
         onChange(value, target, event);
       };

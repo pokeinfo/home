@@ -1,7 +1,5 @@
 .IVResult {
   .resultGrid {
-    grid-gap: 1rem;
-
     &:first-child {
       :nth-child(2), :nth-child(3) {
         border: 0;
@@ -13,10 +11,6 @@
       margin: .5rem 0;
       border-bottom: 2px #dcdcdc solid;
       text-align: center;
-    }
-
-    :first-child {
-      margin: auto 0;
     }
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
-import Grid from '../Grid';
 import { NumberInput } from '../Input';
+
+import ThreeGrid from './ThreeGrid';
 
 const StatInput = ({stat, onChange}) => {
   const { StatForm } = StatInput;
@@ -37,7 +38,7 @@ StatInput.StatForm = ({
   const setEV = ev => setValue({ ev });
 
   return (
-    <Grid column="3.5rem:1:1" gap="1rem">
+    <ThreeGrid>
       <div style={{ margin: 'auto 0' }}>{name}</div>
       <NumberInput
         placeholder={name + " 실수치"}
@@ -53,7 +54,7 @@ StatInput.StatForm = ({
         onChange={setEV}
         className="center"
       />
-    </Grid>
+    </ThreeGrid>
   );
 };
 

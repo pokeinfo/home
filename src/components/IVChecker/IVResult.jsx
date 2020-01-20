@@ -1,5 +1,7 @@
 import React from 'react';
-import Grid from '../Grid';
+import { VerticalCenterText } from '../Text';
+
+import ThreeGrid from './ThreeGrid';
 
 import styles from '../../css/components/IVChecker/IVResult.module.scss';
 
@@ -90,7 +92,7 @@ const IVResult = ({
         <div>현재 개체값</div>
         <div>V일때 실수치</div>
       </ResultGrid>
-      <Result name="HP" type="H" params={params}/>
+      <Result name="HP" type="H" params={params} />
       <Result name="공격" type="A" params={params} />
       <Result name="방어" type="B" params={params} />
       <Result name="특공" type="C" params={params} />
@@ -101,9 +103,9 @@ const IVResult = ({
 };
 
 IVResult.ResultGrid = ({ children }) => (
-  <Grid column="3.5rem:1:1" className={styles.resultGrid}>
+  <ThreeGrid className={styles.resultGrid}>
     {children}
-  </Grid>
+  </ThreeGrid>
 );
 
 IVResult.Result = ({ name, type, params }) => {
@@ -114,7 +116,7 @@ IVResult.Result = ({ name, type, params }) => {
   ];
   return (
     <ResultGrid>
-      <div>{name}</div>
+      <VerticalCenterText>{name}</VerticalCenterText>
       <div>{calcIV(...params)}</div>
       <div>{getStatIVFull(...params)}</div>
     </ResultGrid>

@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 const LoadingAnimation = () => <div>loading...</div>;
 
 class AsyncComponent extends Component {
+  state = {
+    isLoading: true,
+  };
+
   constructor(props) {
     super(props);
     const { loader } = props;
     this.loader = loader;
-    this.state = {
-      isLoading: true,
-    };
   }
 
   async componentDidMount() {

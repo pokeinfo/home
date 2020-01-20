@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import Grid from '../Grid';
-import Container from '../Container';
+import Container, { BoxContainer } from '../Container';
+import Title from '../Title';
+import { CenteredText } from '../Text';
 
+import ThreeGrid from './ThreeGrid';
 import PokemonInput from './PokemonInput';
 import NatureInput from './NatureInput';
 import LevelInput from './LevelInput';
@@ -23,8 +26,8 @@ const IVChecker = () => {
 
   return (
     <Container id="iv-checker">
-      <div>
-        <h2>개체값 계산기</h2>
+      <BoxContainer>
+        <Title>개체값 계산기</Title>
         <div>
           <PokemonInput
             pokemon={pokemon}
@@ -42,21 +45,21 @@ const IVChecker = () => {
           </Grid>
           <DynamaxButton
             dynamax={dynamax}
-            onChange={dynamax => setDynamax(dynamax)}
+            onChange={setDynamax}
           />
-          <Grid column="3.5rem:1:1" gap="1rem">
+          <ThreeGrid>
             <div />
-            <div className="center">실수치</div>
-            <div className="center">노력치</div>
-          </Grid>
+            <CenteredText>실수치</CenteredText>
+            <CenteredText>노력치</CenteredText>
+          </ThreeGrid>
           <StatInput
             stat={pokemonStat}
             onChange={setPokemonStat}
           />
         </div>
-      </div>
-      <div>
-        <h2>결과</h2>
+      </BoxContainer>
+      <BoxContainer>
+        <Title>결과</Title>
         <IVResult
           pokemon={pokemon}
           nature={nature}
@@ -64,7 +67,7 @@ const IVChecker = () => {
           dynamax={dynamax}
           level={level}
         />
-      </div>
+      </BoxContainer>
     </Container>
   );
 };

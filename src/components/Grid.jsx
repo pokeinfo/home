@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from '../css/components/Grid.module.scss';
-
 import classNames from 'classnames';
+import styles from '../css/components/Grid.module.scss';
 
 function createGridStyle({column, row, gap}) {
   [
@@ -36,9 +35,7 @@ const Grid = ({
     ...(style || {}),
     ...createGridStyle({ column, row, gap }),
   };
-  return (
-    <div {...rest} />
-  );
-}
+  return <div {...rest} />;
+};
 
 export default Grid;
