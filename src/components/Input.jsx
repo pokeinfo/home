@@ -106,7 +106,6 @@ const ListInput = ({
 
   const textInputOnChange = (value) => {
     const item = findItem(value.trim());
-    console.log({item, value});
     setInputValue(value);
     setItemSelected(!!item.name);
     onChange(value);
@@ -117,6 +116,7 @@ const ListInput = ({
     setValue(null);
     setInputValue(value);
     setItemSelected(!!value);
+    onChange(value);
   };
 
   const selectElemClassName = classNames(styles.selectWrapper, {
