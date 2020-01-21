@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import Grid from './Grid';
 import classNames from 'classnames';
 import styles from '../css/components/Input.module.scss';
@@ -10,64 +10,48 @@ function getValueFromEvent(event) {
   return [ value, target, event, setValue ];
 }
 
-class Input extends Component {
-  constructor(props) {
-    super(props);
-    let {
-      onChange,
-      className,
-      ...rest
-    } = props;
-    className = classNames(styles.input, className);
-    this.inputPrpos = {
-      className,
-      ...rest,
-    };
-    if (onChange) {
-      this.inputPrpos.onChange = event => {
-        const [ value, target, , setValue ] = getValueFromEvent(event);
-        this.setState({ value });
-        onChange(value, target, event, setValue);
-      };
+const Input = ({
+  onChange,
+  className,
+  ...inputPrpos
+}) => {
+  if (!onChange) throw TypeError("no onChange");
+  inputPrpos.className = classNames(styles.input, className);
+  inputPrpos.onChange = event => {
+    const [ value, target, , setValue ] = getValueFromEvent(event);
+    onChange(value, target, event, setValue);
+  };
+  return <input {...inputPrpos} />;
+};
+
+const TextInput = ({
+  ...inputPrpos
+}) => {
+  inputPrpos.type = 'text';
+  return <Input {...inputPrpos} />;
+};
+
+const NumberInput = ({
+  min = -Infinity,
+  max = Infinity,
+  onChange,
+  ...inputPrpos
+}) => {
+  if (!onChange) throw TypeError("no onChange");
+  inputPrpos.type = 'number';
+  inputPrpos.pattern = "\\d*";
+  inputPrpos.onChange = (value, target, event, setValue) => {
+    if (value.trim() === "" || isNaN(+value)) {
+      value = NaN;
+    } else {
+      value = Math.min(Math.max(+value, min), max);
+      setValue(value);
     }
-  }
+    onChange(value, target, event, setValue);
+  };
 
-  render() {
-    return <input {...this.inputPrpos} />;
-  }
-}
-
-class TextInput extends Input {
-  constructor(props) {
-    super(props);
-    this.inputPrpos.type = 'text';
-  }
-}
-
-class NumberInput extends Input {
-  constructor(props) {
-    super(props);
-    const {
-      min = -Infinity,
-      max = Infinity,
-      onChange,
-    } = props;
-    this.inputPrpos.type = 'number';
-    this.inputPrpos.pattern = "\\d*";
-    if (onChange) {
-      this.inputPrpos.onChange = (event) => {
-        let [ value, target, , setValue ] = getValueFromEvent(event);
-        if (value.trim() === "" || isNaN(+value)) {
-          value = NaN;
-        } else {
-          value = Math.min(Math.max(+value, min), max);
-          setValue(value);
-        }
-        onChange(value, target, event);
-      };
-    }
-  }
-}
+  return <Input {...inputPrpos} />;
+};
 
 const ListInput = ({
   list,
@@ -88,16 +72,16 @@ const ListInput = ({
     // 정렬: 앞의 글자와 입력값이 같다면 우선,
     //       이외의 경우는 일반적인 문자열 정렬.
     const { length: valueLength } = inputValue;
-    const [ aName, bName ] = [a, b].map(
+    const [ aHead, bHead ] = [a, b].map(
       ({ name }) => name.slice(0, valueLength)
     );
-    if (aName === inputValue) return -1;
-    if (bName === inputValue) return 1;
+    if (aHead === inputValue) return -1;
+    if (bHead === inputValue) return 1;
     return a.name.localeCompare(b.name);
   });
 
   const options = (
-    sortedItems.length
+    (sortedItems.length || itemSelected)
       ? sortedItems
       : list
   ).map(
@@ -125,13 +109,9 @@ const ListInput = ({
 
   return (
     <Grid column={itemSelected? "1" : "1:1.5"}>
-      <input
-        type="text"
+      <TextInput
         value={inputValue}
-        onChange={
-          event => textInputOnChange(...getValueFromEvent(event))
-        }
-        className={styles.input}
+        onChange={value => textInputOnChange(value)}
         {...rest}
       />
       <div className={selectElemClassName}>
@@ -145,7 +125,7 @@ const ListInput = ({
       </div>
     </Grid>
   );
-}
+};
 
 export default Input;
 export {
