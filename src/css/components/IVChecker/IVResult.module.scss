@@ -1,16 +1,15 @@
 .IVResult {
   .resultGrid {
-    &:first-child {
-      :nth-child(2), :nth-child(3) {
-        border: 0;
-      }
-    }
-
     :nth-child(2), :nth-child(3) {
       padding: .3rem;
       margin: .5rem 0;
-      border-bottom: 2px #dcdcdc solid;
       text-align: center;
+    }
+
+    &.desktopGrid {
+      :first-child {
+        display: none;
+      }
     }
   }
 }

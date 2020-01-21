@@ -3,7 +3,11 @@ import { ListInput } from '../Input';
 
 import pokemonNatures from '../../pokemon/data/nature.js';
 
-const natureList = pokemonNatures.map(nature => nature.name);
+const natureList = pokemonNatures.map(({ name }, index) => ({
+  name,
+  key: index,
+}));
+
 const NatureInput = ({ nature, onChange }) => (
   <ListInput
     placeholder="성격"

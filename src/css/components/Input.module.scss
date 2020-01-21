@@ -1,21 +1,24 @@
-.input {
+.input,
+.selectWrapper {
   display: block;
   width: 100%;
   margin: .5rem auto;
-  box-sizing : border-box;
+  box-sizing: border-box;
   border-radius: 0;
+  background: none;
+  padding: .3rem 0;
+  border: 0;
+  border-bottom: 2px solid #dcdcdc;
+  font-size: 1rem;
 
-  &[type="text"],
-  &[type="number"],
-  &[list] {
-    padding: .3rem 0;
-    border: 0;
-    border-bottom: 2px solid #dcdcdc;
-    font-size: 1rem;
-
-    &:focus {
-      outline: 0;
-      border-bottom-color: #60dfdf;
-    }
+  &:focus {
+    outline: 0;
+    border-bottom-color: #60dfdf;
   }
+}
+
+select.input {
+  border: 0;
+  margin: -2px 0;
+  padding: 0;
 }

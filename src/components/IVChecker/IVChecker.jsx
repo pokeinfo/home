@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '../Grid';
 import Container, { BoxContainer } from '../Container';
 import Title from '../Title';
@@ -12,61 +12,68 @@ import DynamaxButton from './DynamaxButton';
 import StatInput from './StatInput';
 import IVResult from './IVResult';
 
-const DEV_MODE = (
-  !process.env.NODE_ENV ||
-  process.env.NODE_ENV === 'development'
-);
-
 const IVChecker = () => {
   const [ dynamax, setDynamax ] = useState(false);
-  const [ level, setLevel ] = useState(DEV_MODE? 1 : null);
-  const [ pokemon, setPokemon ] = useState(DEV_MODE? "꼬부기" : null);
-  const [ nature, setNature ] = useState(DEV_MODE? "노력" : null);
+  const [ level, setLevel ] = useState();
+  const [ pokemon, setPokemon ] = useState();
+  const [ nature, setNature ] = useState();
   const [ pokemonStat, setPokemonStat ] = useState({});
+  const { isMobileMediaQuery } = window;
+  const [ isMobile, setIsMobile ] = useState(isMobileMediaQuery.matches);
+
+  useEffect(() => {
+    isMobileMediaQuery.addListener(({ matches }) => {
+      setIsMobile(matches);
+    });
+  }, [ isMobileMediaQuery ]);
 
   return (
     <Container>
       <Title>개체값 계산기</Title>
-      <BoxContainer>
-        <div>
-          <PokemonInput
+      <Grid column={isMobile? "1" : "1:1"}>
+        <BoxContainer>
+          <div>
+            <PokemonInput
+              pokemon={pokemon}
+              onChange={setPokemon}
+            />
+            <Grid column="3:2" gap="1rem">
+              <NatureInput
+                nature={nature}
+                onChange={setNature}
+              />
+              <LevelInput
+                level={level}
+                onChange={setLevel}
+              />
+            </Grid>
+            <DynamaxButton
+              dynamax={dynamax}
+              onChange={setDynamax}
+            />
+            <ThreeGrid>
+              <div />
+              <CenteredText>실수치</CenteredText>
+              <CenteredText>노력치</CenteredText>
+            </ThreeGrid>
+            <StatInput
+              stat={pokemonStat}
+              onChange={setPokemonStat}
+            />
+          </div>
+        </BoxContainer>
+        <BoxContainer>
+          <Title>결과</Title>
+          <IVResult
+            isMobile={isMobile}
             pokemon={pokemon}
-            onChange={setPokemon}
-          />
-          <Grid column="3:2" gap="1rem">
-            <NatureInput
-              nature={nature}
-              onChange={setNature}
-            />
-            <LevelInput
-              level={level}
-              onChange={setLevel}
-            />
-          </Grid>
-          <DynamaxButton
-            dynamax={dynamax}
-            onChange={setDynamax}
-          />
-          <ThreeGrid>
-            <div />
-            <CenteredText>실수치</CenteredText>
-            <CenteredText>노력치</CenteredText>
-          </ThreeGrid>
-          <StatInput
+            nature={nature}
             stat={pokemonStat}
-            onChange={setPokemonStat}
+            dynamax={dynamax}
+            level={level}
           />
-        </div>
-      </BoxContainer>
-      <BoxContainer>
-        <IVResult
-          pokemon={pokemon}
-          nature={nature}
-          stat={pokemonStat}
-          dynamax={dynamax}
-          level={level}
-        />
-      </BoxContainer>
+        </BoxContainer>
+      </Grid>
     </Container>
   );
 };

@@ -9,7 +9,8 @@ import Footer from './Footer';
 class App extends Component {
   constructor(props) {
     super(props);
-    const mediaQuery = window.matchMedia('(max-width: 900px)');
+    const mediaQuery = window.matchMedia('(max-width: 1020px)');
+    window.isMobileMediaQuery = mediaQuery;
     this.mediaQuery = mediaQuery;
     this.state = {
       isMobile: mediaQuery.matches,

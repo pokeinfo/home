@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { VerticalCenterText } from '../Text';
 
 import ThreeGrid from './ThreeGrid';
@@ -77,6 +78,7 @@ const IVResult = ({
   stat,
   nature,
   level,
+  isMobile,
 }) => {
   pokemon = findPokemonByName(pokemon);
   nature = findNatureByName(nature);
@@ -85,37 +87,48 @@ const IVResult = ({
     ResultGrid,
     Result,
   } = IVResult;
+  const props = {
+    isMobile,
+    params,
+  };
   return (
     <div className={styles.IVResult}>
-      <ResultGrid>
+      <ResultGrid {...props}>
         <div />
         <div>현재 개체값</div>
         <div>V일때 실수치</div>
       </ResultGrid>
-      <Result name="HP" type="H" params={params} />
-      <Result name="공격" type="A" params={params} />
-      <Result name="방어" type="B" params={params} />
-      <Result name="특공" type="C" params={params} />
-      <Result name="특방" type="D" params={params} />
-      <Result name="스피드" type="S" params={params} />
+      <Result name="HP" type="H" {...props} />
+      <Result name="공격" type="A" {...props} />
+      <Result name="방어" type="B" {...props} />
+      <Result name="특공" type="C" {...props} />
+      <Result name="특방" type="D" {...props} />
+      <Result name="스피드" type="S" {...props} />
     </div>
   );
 };
 
-IVResult.ResultGrid = ({ children }) => (
-  <ThreeGrid className={styles.resultGrid}>
+IVResult.ResultGrid = ({ children, isMobile }) => (
+  <ThreeGrid
+    isDesktop={!isMobile}
+    className={
+      classNames(styles.resultGrid, {
+        [styles.desktopGrid]: !isMobile,
+      })
+    }
+  >
     {children}
   </ThreeGrid>
 );
 
-IVResult.Result = ({ name, type, params }) => {
+IVResult.Result = ({ name, type, params, isMobile }) => {
   const { ResultGrid } = IVResult;
   params = [
     type,
     ...params,
   ];
   return (
-    <ResultGrid>
+    <ResultGrid isMobile={isMobile}>
       <VerticalCenterText>{name}</VerticalCenterText>
       <div>{calcIV(...params)}</div>
       <div>{getStatIVFull(...params)}</div>
