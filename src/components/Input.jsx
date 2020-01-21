@@ -60,6 +60,7 @@ class NumberInput extends Input {
       onChange,
     } = props;
     this.state.type = 'number';
+    this.state.pattern = "\\d*";
     if (onChange) {
       this.state.onChange = (event) => {
         let [ value, target, , setValue ] = getValueFromEvent(event);
