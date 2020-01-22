@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import Grid from './Grid';
 import classNames from 'classnames';
+import { hangulDecompose } from 'enyg';
+import { getValueFromEvent } from '../util/event';
 import styles from '../css/components/Input.module.scss';
 
-function getValueFromEvent(event) {
-  const { target } = event;
-  const { value } = target;
-  const setValue = value => target.value = value;
-  return [ value, target, event, setValue ];
+function toChosung(string) {
+  const cache = toChosung.cache || (toChosung.cache = {});
+  string = String(string);
+  return cache[string] || (
+    cache[string] = [...string].map(
+      s => {
+        const { char, chosung } = hangulDecompose(s);
+        return chosung || char;
+      }
+    ).join('')
+  );
 }
 
 const Input = ({
@@ -59,24 +67,29 @@ const ListInput = ({
   defaultValue,
   ...rest
 }) => {
-  const findItem = (name) => (list.find(item => item.name === name) || {});
+  const findItem = (name) => (
+    list.find(item => item.name === name) || {}
+  );
   const defaultSelecteValue = findItem(defaultValue).name;
   const [ itemSelected, setItemSelected ] = useState(defaultSelecteValue);
   const [ inputValue, setInputValue ] = useState(defaultValue || '');
 
   const candidateItems = itemSelected? [] : list.filter(
-    ({ name }) => name.includes(inputValue)
+    ({ name }) => toChosung(name).includes(toChosung(inputValue))
   );
 
   const sortedItems = candidateItems.sort((a, b) => {
     // 정렬: 앞의 글자와 입력값이 같다면 우선,
     //       이외의 경우는 일반적인 문자열 정렬.
     const { length: valueLength } = inputValue;
-    const [ aHead, bHead ] = [a, b].map(
+    let [ aHead, bHead ] = [a, b].map(
       ({ name }) => name.slice(0, valueLength)
     );
     if (aHead === inputValue) return -1;
     if (bHead === inputValue) return 1;
+    [ aHead, bHead ] = [aHead, bHead].map(toChosung);
+    if (aHead === toChosung(inputValue)) return -1;
+    if (bHead === toChosung(inputValue)) return 1;
     return a.name.localeCompare(b.name);
   });
 
