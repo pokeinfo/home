@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from '../css/components/Text.module.scss';
+import styles from '../scss/components/Text.module.scss';
 
 const Text = ({...rest}) => <p {...rest} />;
 

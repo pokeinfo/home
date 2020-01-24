@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from '../css/components/Title.module.scss';
+import styles from '../scss/components/Title.module.scss';
 
 const Title = ({
   className,

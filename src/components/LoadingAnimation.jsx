@@ -2,7 +2,7 @@ import React from 'react';
 import Container from './Container';
 import { CenteredText } from './Text';
 import classNames from 'classnames';
-import styles from '../css/components/LoadingAnimation.module.scss'
+import styles from '../scss/components/LoadingAnimation.module.scss'
 
 import { ReactComponent as EmptyPokeballImage } from '../svg/pokeball.svg';
 

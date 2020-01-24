@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { NavOpenButton } from './Nav';
 import Grid from './Grid';
-import styles from '../css/components/Header.module.scss';
+import styles from '../scss/components/Header.module.scss';
 
 const Header = ({ isMobile, onNavButtonClick }) => (
   <div>

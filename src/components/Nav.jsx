@@ -6,7 +6,7 @@ import {
 import Grid from './Grid';
 import { VerticalCenterText } from './Text';
 import classNames from 'classnames';
-import styles from '../css/components/Nav.module.scss';
+import styles from '../scss/components/Nav.module.scss';
 
 import {
   ReactComponent as CommunityIcon,

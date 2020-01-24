@@ -3,7 +3,6 @@ import Grid from './Grid';
 import classNames from 'classnames';
 import { hangulDecompose } from 'enyg';
 import { getValueFromEvent } from '../util/event';
-import styles from '../css/components/Input.module.scss';
 
 function toChosung(string) {
   const cache = toChosung.cache || (toChosung.cache = {});
@@ -17,6 +16,7 @@ function toChosung(string) {
     ).join('')
   );
 }
+import styles from '../scss/components/Input.module.scss';
 
 const Input = ({
   onChange,

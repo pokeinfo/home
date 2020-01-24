@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from '../css/components/Container.module.scss';
+import styles from '../scss/components/Container.module.scss';
 
 const Container = ({
   className,

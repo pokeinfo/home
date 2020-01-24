@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from '../css/components/Grid.module.scss';
+import styles from '../scss/components/Grid.module.scss';
 
 function createGridStyle({column, row, gap}) {
   [

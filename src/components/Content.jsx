@@ -8,7 +8,7 @@ import Grid from './Grid';
 import Nav from './Nav';
 import LoadingAnimation from './LoadingAnimation';
 
-import styles from '../css/components/Content.module.scss';
+import styles from '../scss/components/Content.module.scss';
 
 const AsyncIVChecker = () => (
   <AsyncDefaultComponent

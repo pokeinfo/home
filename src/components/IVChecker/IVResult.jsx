@@ -4,7 +4,7 @@ import { VerticalCenterText } from '../Text';
 
 import ThreeGrid from './ThreeGrid';
 
-import styles from '../../css/components/IVChecker/IVResult.module.scss';
+import styles from '../../scss/components/IVChecker/IVResult.module.scss';
 
 import pokedex from '../../pokemon/data/pokedex';
 import pokemonNatures from '../../pokemon/data/nature';
