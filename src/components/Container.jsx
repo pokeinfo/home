@@ -16,6 +16,14 @@ const Container = ({
   return <div {...rest} />;
 }
 
+const Box = ({
+  className,
+  ...rest
+}) => {
+  rest.className = classNames(styles.box, className);
+  return <div {...rest} />;
+};
+
 const BoxContainer = ({
   className,
   ...rest
@@ -27,4 +35,5 @@ const BoxContainer = ({
 export default Container;
 export {
   BoxContainer,
+  Box,
 };
