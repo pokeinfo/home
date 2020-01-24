@@ -1,0 +1,1 @@
+{"version":3,"sources":["Title.module.scss"],"names":[],"mappings":"AAAA,oBACE,iBAAkB,CAClB,kBAAmB,CACnB,iBAAkB","file":"4.ace9c4ee.chunk.css","sourcesContent":[".title {\n  margin: .5rem auto;\n  padding: 1rem .5rem;\n  text-align: center;\n}\n"]}
