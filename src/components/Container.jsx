@@ -4,8 +4,14 @@ import styles from '../scss/components/Container.module.scss';
 
 const Container = ({
   className,
+  maxWidth,
+  style,
   ...rest
 }) => {
+  rest.style = {
+    ...(style || {}),
+    maxWidth,
+  };
   rest.className = classNames(styles.container, className);
   return <div {...rest} />;
 }
