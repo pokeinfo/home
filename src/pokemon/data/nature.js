@@ -1,8 +1,14 @@
+import findByName from '../../util/findByName';
+
 function mapList(...list) {
   return list.map( ([ name, up, down ]) => ({ name, up, down }) );
 }
 
-export default mapList(
+export function findNatureByName(name) {
+  return findByName(pokemonNatures, name);
+}
+
+const pokemonNatures = mapList(
   [ "외로움", "A", "B" ],
   [ "고집", "A", "C" ],
   [ "개구쟁이", "A", "D" ],
@@ -29,3 +35,5 @@ export default mapList(
   [ "변덕" ],
   [ "성실" ],
 );
+
+export default pokemonNatures;

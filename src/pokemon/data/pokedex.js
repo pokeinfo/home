@@ -1,3 +1,5 @@
+import findByName from '../../util/findByName';
+
 function mapList(...list) {
   return list.map(pkm => {
     const [ index, name, stat ] = pkm;
@@ -7,7 +9,11 @@ function mapList(...list) {
   });
 }
 
-export default mapList(
+export function findPokemonByName(name) {
+  return findByName(pokedex, name);
+}
+
+const pokedex = mapList(
   [
     1,
     "이상해씨",
@@ -11329,3 +11335,5 @@ export default mapList(
     ]
   ]
 );
+
+export default pokedex;

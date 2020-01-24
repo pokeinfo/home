@@ -6,21 +6,9 @@ import ThreeGrid from './ThreeGrid';
 
 import styles from '../../scss/components/IVChecker/IVResult.module.scss';
 
-import pokedex from '../../pokemon/data/pokedex';
-import pokemonNatures from '../../pokemon/data/nature';
+import { findPokemonByName } from '../../pokemon/data/pokedex';
+import { findNatureByName } from '../../pokemon/data/nature';
 import calcRealStat from '../../pokemon/calcRealStat';
-
-function findByName(array, name) {
-  return array.find(object => object.name === name);
-}
-
-function findPokemonByName(name) {
-  return findByName(pokedex, name);
-}
-
-function findNatureByName(name) {
-  return findByName(pokemonNatures, name);
-}
 
 function getBaseStatFromPokemon(type, pokemon) {
   const baseStatKey = Array.from('HABCDS').indexOf(type);
