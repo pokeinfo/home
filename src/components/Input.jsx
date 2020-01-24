@@ -1,21 +1,8 @@
 import React, { useState } from 'react';
 import Grid from './Grid';
 import classNames from 'classnames';
-import { hangulDecompose } from 'enyg';
+import { toChosung } from 'enyg';
 import { getValueFromEvent } from '../util/event';
-
-function toChosung(string) {
-  const cache = toChosung.cache || (toChosung.cache = {});
-  string = String(string);
-  return cache[string] || (
-    cache[string] = [...string].map(
-      s => {
-        const { char, chosung } = hangulDecompose(s);
-        return chosung || char;
-      }
-    ).join('')
-  );
-}
 import styles from '../scss/components/Input.module.scss';
 
 const Input = ({
