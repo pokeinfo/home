@@ -15,6 +15,9 @@ import {
   ReactComponent as IVCheckerIcon,
 } from '../svg/iconmonstr-calculator-1.svg';
 import {
+  ReactComponent as SpeedCheckerIcon,
+} from '../svg/iconmonstr-time-19.svg';
+import {
   ReactComponent as MenuIcon,
 } from '../svg/iconmonstr-menu-1.svg';
 
@@ -62,6 +65,7 @@ const Nav = ({ isOpen, onClickClose, isMobile, location }) => {
   });
   const curruntPathName = location.pathname;
   const closeNav = () => onClickClose(false);
+  const navItemParams = { curruntPathName, closeNav };
   return (
     <nav className={className}>
       <NavCloseButton onClick={closeNav} />
@@ -69,28 +73,29 @@ const Nav = ({ isOpen, onClickClose, isMobile, location }) => {
         to="/"
         title="커뮤니티"
         icon={CommunityIcon}
-        curruntPathName={curruntPathName}
-        closeNav={closeNav}
+        {...navItemParams}
       />
       <NavItem
         to="/iv-checker"
         title="개체값 측정기"
         icon={IVCheckerIcon}
-        curruntPathName={curruntPathName}
-        closeNav={closeNav}
+        {...navItemParams}
+      />
+      <NavItem
+        to="/speed-checker"
+        title="스피드 추월 계산기"
+        icon={SpeedCheckerIcon}
+        {...navItemParams}
       />
     </nav>
   );
 };
 
-const NavCloseButton = ({ onClick }) => {
-  const className = classNames(styles.navCloseButton, {
-
-  });
-  return (
-    <div className={className} onClick={onClick}>닫기</div>
-  );
-};
+const NavCloseButton = ({ onClick }) => (
+  <div className={styles.navCloseButton} onClick={onClick}>
+    닫기
+  </div>
+);
 
 const NavOpenButton = ({ isOpen, isMobile, onClick }) => {
   const className = classNames(styles.navOpenButton, {

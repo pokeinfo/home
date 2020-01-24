@@ -17,6 +17,13 @@ const AsyncIVChecker = () => (
   />
 );
 
+const AsyncSpeedChecker = () => (
+  <AsyncDefaultComponent
+    id="SpeedChecker"
+    loader={import('./SpeedChecker/SpeedChecker')}
+  />
+);
+
 const AsyncCommunity = () => (
   <AsyncDefaultComponent
     id="IVChecker"
@@ -24,20 +31,23 @@ const AsyncCommunity = () => (
   />
 );
 
-const Content = ({ isMobile, isNavOpen, onNavButtonClick }) => {
-  return (
-    <Grid column={isMobile? "1" : "275px:1"}>
-      <Nav isMobile={isMobile} isOpen={isNavOpen} onClickClose={onNavButtonClick} />
-      <article className={styles.content}>
-        <Switch>
-          <Route path="/iv-checker" component={AsyncIVChecker} />
-          <Route path="/test-loading-animation" component={LoadingAnimation} />
-          <Route path="/" component={AsyncCommunity} exact />
-          <Route path="/" component={() => <div>404</div>} />
-        </Switch>
-      </article>
-    </Grid>
-  );
-};
+const Content = ({ isMobile, isNavOpen, onNavButtonClick }) => (
+  <Grid column={isMobile? "1" : "275px:1"}>
+    <Nav
+      isMobile={isMobile}
+      isOpen={isNavOpen}
+      onClickClose={onNavButtonClick}
+    />
+    <article className={styles.content}>
+      <Switch>
+        <Route path="/iv-checker" component={AsyncIVChecker} />
+        <Route path="/speed-checker" component={AsyncSpeedChecker} />
+        <Route path="/test-loading-animation" component={LoadingAnimation} />
+        <Route path="/" component={AsyncCommunity} exact />
+        <Route path="/" component={() => <div>404</div>} />
+      </Switch>
+    </article>
+  </Grid>
+);
 
 export default Content;
