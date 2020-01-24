@@ -47,7 +47,7 @@ const SpeedResult = ({
   return (
     <Box className="center">
       <Container maxWidth={330}>
-        <Grid Grid column="1:1:1">
+        <Grid column="1:1:1">
             <p />
             <p>종족값</p>
             <p>실수치</p>
