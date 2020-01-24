@@ -8,6 +8,7 @@ import styles from '../scss/components/Input.module.scss';
 const Input = ({
   onChange,
   className,
+  label,
   ...inputPrpos
 }) => {
   if (!onChange) throw TypeError("no onChange");
@@ -16,7 +17,15 @@ const Input = ({
     const [ value, target, , setValue ] = getValueFromEvent(event);
     onChange(value, target, event, setValue);
   };
-  return <input {...inputPrpos} />;
+
+  return label? (
+    <Grid column={label.length + ".5rem : 1"}>
+      <div className={styles.label}>{label}</div>
+      <input {...inputPrpos} />
+    </Grid>
+  ) : (
+    <input {...inputPrpos} />
+  );
 };
 
 const TextInput = ({

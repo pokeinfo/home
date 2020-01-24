@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from '../../scss/components/IVChecker/DynamaxButton.module.scss';
+import styles from '../../scss/components/Pokemon/DynamaxButton.module.scss';
 
 const DynamaxButton = ({
   dynamax,

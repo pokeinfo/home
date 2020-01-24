@@ -5,10 +5,10 @@ import Title from '../Title';
 import { CenteredText } from '../Text';
 
 import ThreeGrid from './ThreeGrid';
-import PokemonInput from './PokemonInput';
-import NatureInput from './NatureInput';
-import LevelInput from './LevelInput';
-import DynamaxButton from './DynamaxButton';
+import SelectPokemon from '../Pokemon/SelectPokemon';
+import SelectNature from '../Pokemon/SelectNature';
+import LevelInput from '../Pokemon/LevelInput';
+import DynamaxButton from '../Pokemon/DynamaxButton';
 import StatInput from './StatInput';
 import IVResult from './IVResult';
 
@@ -30,15 +30,15 @@ const IVChecker = () => {
   return (
     <Container>
       <Title>개체값 계산기</Title>
-      <Grid column={isMobile? "1" : "1:1"} gap="1rem">
+      <Grid column={isMobile? "1" : "1:1"} gap={isMobile? "0" : "1rem"}>
         <BoxContainer>
           <div>
-            <PokemonInput
+            <SelectPokemon
               pokemon={pokemon}
               onChange={setPokemon}
             />
             <Grid column="3:2" gap="1rem">
-              <NatureInput
+              <SelectNature
                 nature={nature}
                 onChange={setNature}
               />

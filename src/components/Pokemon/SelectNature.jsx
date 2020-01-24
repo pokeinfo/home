@@ -8,7 +8,7 @@ const natureList = pokemonNatures.map(({ name }, index) => ({
   key: index,
 }));
 
-const NatureInput = ({ nature, onChange }) => (
+const SelectNature = ({ nature, onChange }) => (
   <ListInput
     placeholder="성격"
     defaultValue={nature}
@@ -17,4 +17,4 @@ const NatureInput = ({ nature, onChange }) => (
   />
 );
 
-export default NatureInput;
+export default SelectNature;

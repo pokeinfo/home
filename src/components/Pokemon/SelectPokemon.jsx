@@ -8,7 +8,7 @@ const pokemonList = pokedex.map(({ name }, index) => ({
   key: index,
 }));
 
-const PokemonInput = ({ pokemon, onChange }) => (
+const SelectPokemon = ({ pokemon, onChange }) => (
   <ListInput
     placeholder="포켓몬 이름"
     defaultValue={pokemon}
@@ -17,4 +17,4 @@ const PokemonInput = ({ pokemon, onChange }) => (
   />
 );
 
-export default PokemonInput;
+export default SelectPokemon;

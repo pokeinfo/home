@@ -7,6 +7,7 @@ const LevelInput = ({ level, onChange }) => (
     defaultValue={level}
     min={1}
     max={100}
+    label={"LV"}
     onChange={onChange}
   />
 );
