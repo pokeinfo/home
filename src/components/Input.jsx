@@ -136,9 +136,45 @@ const ListInput = ({
   );
 };
 
+const Select = ({
+  list,
+  onChange,
+  ...rest
+}) => {
+  let defaultValue;
+  const options = list.map(
+    ({ name, key, value, selected }) => {
+      if (selected) defaultValue = value;
+      return (
+        <option value={value} key={key}>
+        {name}
+        </option>
+      );
+    }
+  );
+
+  const selectOnChange = (event) => {
+    const [ value ] = getValueFromEvent(event);
+    onChange(value);
+  };
+
+  return (
+    <div className={styles.selectWrapper}>
+      <select
+        defaultValue={defaultValue}
+        className={styles.input}
+        onChange={selectOnChange}
+      >
+        {options}
+      </select>
+    </div>
+  );
+};
+
 export default Input;
 export {
   TextInput,
   NumberInput,
   ListInput,
+  Select,
 };
