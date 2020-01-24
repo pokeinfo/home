@@ -30,7 +30,7 @@ const IVChecker = () => {
   return (
     <Container>
       <Title>개체값 계산기</Title>
-      <Grid column={isMobile? "1" : "1:1"}>
+      <Grid column={isMobile? "1" : "1:1"} gap="1rem">
         <BoxContainer>
           <div>
             <PokemonInput
