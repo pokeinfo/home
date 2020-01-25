@@ -6,6 +6,8 @@ import { Box } from '../Container';
 import { findPokemonByName } from '../../pokemon/data/pokedex';
 import calcRealStatWithRank from '../../pokemon/calcRealStatWithRank';
 
+import styles from '../../scss/components/SpeedChecker/SpeedResult.module.scss';
+
 function getMessage(realStat) {
   const gap = Math.abs(realStat.my - realStat.enemy);
   if (gap === 0)
@@ -63,7 +65,7 @@ const SpeedResult = ({
   return (
     <Box className="center">
       <Container maxWidth={330}>
-        <Grid column="1:1:1">
+        <Grid column="1:1:1" gap="2px" className={styles.result}>
             <p />
             <p>종족값</p>
             <p>실수치</p>
