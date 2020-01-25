@@ -13,6 +13,13 @@ const mapReduxDispatchToReactProps = (dispatch, { id }) => ({
       newPokemon,
     });
   },
+
+  onClickDelete: () => {
+    dispatch({
+      type: 'SPEED_CHECKER_POKEMON_RESET',
+      id,
+    });
+  },
 });
 
 export default connect(

@@ -52,6 +52,20 @@ const reducer = (state, action) => {
       },
     });
 
+    case 'SPEED_CHECKER_POKEMON_RESET': return createState({
+      speedChecker: {
+        ...state.speedChecker,
+        [action.id]: {},
+      },
+    });
+
+    case 'SPEED_CHECKER_POKEMON_SWAP': return createState({
+      speedChecker: {
+        my: state.speedChecker.enemy,
+        enemy: state.speedChecker.my,
+      },
+    });
+
     default:
       throw TypeError("Unknown action.type");
   }

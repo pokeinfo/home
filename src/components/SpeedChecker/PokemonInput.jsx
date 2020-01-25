@@ -1,6 +1,7 @@
 import React from 'react';
 import { BoxContainer } from '../Container';
 import { NumberInput, Select } from '../Input';
+import Button from '../Button';
 import Grid from '../Grid';
 import SelectPokemon from '../Pokemon/SelectPokemon';
 import LevelInput from '../Pokemon/LevelInput';
@@ -70,6 +71,7 @@ const PokemonInput = ({
   title,
   pokemon,
   onChange,
+  onClickDelete,
 }) => {
   const {
     base = '',
@@ -138,6 +140,12 @@ const PokemonInput = ({
           value={ability}
           onChange={getNumberOnChange('ability')}
         />
+      </Grid>
+      <br/>
+      <Grid column="1:1:1" gap=".5rem">
+        <Button title="초기화" onClick={onClickDelete}/>
+        <Button title="최속 보정" onClick={() => onChange({ nature: 1.1, iv: 31, ev: 252})}/>
+        <Button title="준속 보정" onClick={() => onChange({ nature: 1, iv: 31, ev: 252})}/>
       </Grid>
     </BoxContainer>
   );

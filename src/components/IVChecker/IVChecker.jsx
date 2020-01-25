@@ -10,6 +10,7 @@ import SelectNature from '../../containers/IVChecker/SelectNature';
 import LevelInput from '../../containers/IVChecker/LevelInput';
 import DynamaxButton from '../../containers/IVChecker/DynamaxButton';
 import StatInput from '../../containers/IVChecker/StatInput';
+import Buttons from '../../containers/IVChecker/Buttons';
 import IVResult from '../../containers/IVChecker/IVResult';
 
 const IVChecker = ({ isMobile }) => {
@@ -31,6 +32,8 @@ const IVChecker = ({ isMobile }) => {
               <CenteredText>노력치</CenteredText>
             </ThreeGrid>
             <StatInput />
+            <br/>
+            <Buttons />
           </div>
         </BoxContainer>
         <BoxContainer>
