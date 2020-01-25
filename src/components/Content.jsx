@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import { AsyncDefaultComponent } from './AsyncComponent';
 import Grid from './Grid';
-import Nav from './Nav';
+import Nav from '../containers/Nav';
 import LoadingAnimation from './LoadingAnimation';
 
 import styles from '../scss/components/Content.module.scss';
@@ -13,14 +13,14 @@ import styles from '../scss/components/Content.module.scss';
 const AsyncIVChecker = () => (
   <AsyncDefaultComponent
     id="IVChecker"
-    loader={import('./IVChecker/IVChecker')}
+    loader={import('../containers/IVChecker/IVChecker')}
   />
 );
 
 const AsyncSpeedChecker = () => (
   <AsyncDefaultComponent
     id="SpeedChecker"
-    loader={import('./SpeedChecker/SpeedChecker')}
+    loader={import('../containers/SpeedChecker/SpeedChecker')}
   />
 );
 
@@ -31,20 +31,16 @@ const AsyncCommunity = () => (
   />
 );
 
-const Content = ({ isMobile, isNavOpen, onNavButtonClick }) => (
+const Content = ({ isMobile }) => (
   <Grid column={isMobile? "1" : "275px:1"}>
-    <Nav
-      isMobile={isMobile}
-      isOpen={isNavOpen}
-      onClickClose={onNavButtonClick}
-    />
+    <Nav />
     <article className={styles.content}>
       <Switch>
         <Route path="/iv-checker" component={AsyncIVChecker} />
         <Route path="/speed-checker" component={AsyncSpeedChecker} />
         <Route path="/test-loading-animation" component={LoadingAnimation} />
         <Route path="/" component={AsyncCommunity} exact />
-        <Route path="/" component={() => <div>404</div>} />
+        <Route path="*" component={() => <div>404</div>} />
       </Switch>
     </article>
   </Grid>

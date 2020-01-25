@@ -1,14 +1,13 @@
 import React from 'react';
 import { NumberInput } from '../Input';
 
-const LevelInput = ({ level, onChange }) => (
+const LevelInput = (props) => (
   <NumberInput
     placeholder="레벨"
-    defaultValue={level}
     min={1}
     max={100}
-    label={"LV"}
-    onChange={onChange}
+    label="LV"
+    {...props}
   />
 );
 

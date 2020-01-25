@@ -12,6 +12,7 @@ const Input = ({
   ...inputPrpos
 }) => {
   if (!onChange) throw TypeError("no onChange");
+
   inputPrpos.className = classNames(styles.input, className);
   inputPrpos.onChange = event => {
     const [ value, target, , setValue ] = getValueFromEvent(event);
@@ -46,7 +47,7 @@ const NumberInput = ({
   inputPrpos.pattern = "\\d*";
   inputPrpos.onChange = (value, target, event, setValue) => {
     if (value.trim() === "" || isNaN(+value)) {
-      value = NaN;
+      value = '';
     } else {
       value = Math.min(Math.max(+value, min), max);
       setValue(value);
@@ -61,31 +62,34 @@ const ListInput = ({
   list,
   onChange,
   defaultValue,
+  value,
   ...rest
 }) => {
+  const isValueExist = (value != null);
   const findItem = (name) => (
     list.find(item => item.name === name) || {}
   );
-  const defaultSelecteValue = findItem(defaultValue).name;
-  const [ itemSelected, setItemSelected ] = useState(defaultSelecteValue);
+  const itemSelected = findItem(isValueExist? value : defaultValue).name;
   const [ inputValue, setInputValue ] = useState(defaultValue || '');
+  rest.value = (isValueExist? value : inputValue) || '';
 
   const candidateItems = itemSelected? [] : list.filter(
-    ({ name }) => toChosung(name).includes(toChosung(inputValue))
+    ({ name }) => toChosung(name).includes(toChosung(rest.value))
   );
 
   const sortedItems = candidateItems.sort((a, b) => {
     // 정렬: 앞의 글자와 입력값이 같다면 우선,
     //       이외의 경우는 일반적인 문자열 정렬.
-    const { length: valueLength } = inputValue;
+    const { value } = rest;
+    const { length: valueLength } = value;
     let [ aHead, bHead ] = [a, b].map(
       ({ name }) => name.slice(0, valueLength)
     );
-    if (aHead === inputValue) return -1;
-    if (bHead === inputValue) return 1;
+    if (aHead === value) return -1;
+    if (bHead === value) return 1;
     [ aHead, bHead ] = [aHead, bHead].map(toChosung);
-    if (aHead === toChosung(inputValue)) return -1;
-    if (bHead === toChosung(inputValue)) return 1;
+    if (aHead === toChosung(value)) return -1;
+    if (bHead === toChosung(value)) return 1;
     return a.name.localeCompare(b.name);
   });
 
@@ -97,19 +101,15 @@ const ListInput = ({
     ({ name, key, value }) => <option value={value} key={key}>{name}</option>
   );
 
-  const textInputOnChange = (value) => {
-    const item = findItem(value.trim());
-    setInputValue(value);
-    setItemSelected(!!item.name);
-    onChange(value);
+  const textInputOnChange = (newValue) => {
+    if (!isValueExist) setInputValue(newValue);
+    onChange(newValue);
   };
 
   const selectOnChange = (event) => {
-    const [ value, , , setValue ] = getValueFromEvent(event);
-    setValue(null);
-    setInputValue(value);
-    setItemSelected(!!value);
-    onChange(value);
+    const [ newValue, , , setSelectValue ] = getValueFromEvent(event);
+    setSelectValue(null);
+    textInputOnChange(newValue);
   };
 
   const selectElemClassName = classNames(styles.selectWrapper, {
@@ -119,7 +119,6 @@ const ListInput = ({
   return (
     <Grid column={itemSelected? "1" : "1:1.5"}>
       <TextInput
-        value={inputValue}
         onChange={value => textInputOnChange(value)}
         {...rest}
       />
@@ -147,11 +146,15 @@ const Select = ({
       if (selected) defaultValue = value;
       return (
         <option value={value} key={key}>
-        {name}
+          {name}
         </option>
       );
     }
   );
+
+  if (defaultValue != null) {
+    rest.defaultValue = defaultValue;
+  }
 
   const selectOnChange = (event) => {
     const [ value ] = getValueFromEvent(event);
@@ -161,9 +164,9 @@ const Select = ({
   return (
     <div className={styles.selectWrapper}>
       <select
-        defaultValue={defaultValue}
         className={styles.input}
         onChange={selectOnChange}
+        {...rest}
       >
         {options}
       </select>

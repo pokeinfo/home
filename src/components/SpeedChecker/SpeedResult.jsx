@@ -3,6 +3,7 @@ import Grid from '../Grid';
 import Container from '../Container';
 import { Box } from '../Container';
 
+import { findPokemonByName } from '../../pokemon/data/pokedex';
 import calcRealStatWithRank from '../../pokemon/calcRealStatWithRank';
 
 function getMessage(realStat) {
@@ -20,8 +21,8 @@ function getMessage(realStat) {
 }
 
 const SpeedResult = ({
-  myPokemon,
-  enemyPokemon,
+  myPokemon = {},
+  enemyPokemon = {},
 }) => {
   const numberToNature = (number) => {
     switch (number) {
@@ -31,13 +32,28 @@ const SpeedResult = ({
     }
   };
 
-  const getSpeedRealStat = (pokemon) => {
+  const getSpeedRealStat = ({
+    item,
+    ability,
+    ...pokemon
+  }) => {
     return calcRealStatWithRank({
       ...pokemon,
+      effect: (item * ability),
       type: 'S',
       nature: numberToNature(pokemon.nature),
     });
   };
+
+  [myPokemon, enemyPokemon] = [myPokemon, enemyPokemon].map(
+    ({
+      base,
+      ...pokemon
+    }) => ({
+      ...pokemon,
+      baseStat: ((findPokemonByName(base) || {}).stat || {})[5], // 스피드 종족값
+    })
+  );
 
   const realStat = {
     my: getSpeedRealStat(myPokemon),

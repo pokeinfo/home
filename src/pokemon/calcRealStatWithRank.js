@@ -6,6 +6,7 @@ const calcRealStatWithRank = ({
   effect,
   ...pokemon
 }) => {
+  // console.log(pokemon);
   return calcRankEffect({
     rank,
     stat: Math.floor(

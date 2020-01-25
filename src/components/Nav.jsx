@@ -56,7 +56,7 @@ const NavItem = ({
       </Grid>
     </RootElement>
   );
-}
+};
 
 const Nav = ({ isOpen, onClickClose, isMobile, location }) => {
   const className = classNames(styles.nav, {
@@ -64,11 +64,13 @@ const Nav = ({ isOpen, onClickClose, isMobile, location }) => {
     [styles.open]: isOpen,
   });
   const curruntPathName = location.pathname;
-  const closeNav = () => onClickClose(false);
-  const navItemParams = { curruntPathName, closeNav };
+  const navItemParams = {
+    curruntPathName,
+    closeNav: onClickClose,
+  };
   return (
     <nav className={className}>
-      <NavCloseButton onClick={closeNav} />
+      <NavCloseButton onClick={onClickClose} />
       <NavItem
         to="/"
         title="커뮤니티"

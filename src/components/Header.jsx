@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { NavOpenButton } from './Nav';
+import { NavOpenButton } from '../containers/Nav';
 import Grid from './Grid';
 import styles from '../scss/components/Header.module.scss';
 
-const Header = ({ isMobile, onNavButtonClick }) => (
+const Header = () => (
   <div>
     <header className={styles.header}>
       <Grid column="1:4:1">
@@ -12,7 +12,7 @@ const Header = ({ isMobile, onNavButtonClick }) => (
         <h1>
           <Link to="/">Pokè Info</Link>
         </h1>
-        <NavOpenButton isMobile={isMobile} onClick={onNavButtonClick} />
+        <NavOpenButton />
       </Grid>
     </header>
     <div className={styles.headerSafeZone} />

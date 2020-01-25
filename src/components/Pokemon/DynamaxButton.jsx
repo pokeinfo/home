@@ -6,10 +6,6 @@ const DynamaxButton = ({
   dynamax,
   onChange,
 }) => {
-  function clickEvent() {
-    dynamax = !dynamax;
-    onChange(dynamax);
-  }
   const className = classNames(
     styles.dynamaxButton,
     {
@@ -19,7 +15,7 @@ const DynamaxButton = ({
   return (
     <div
       className={className}
-      onClick={clickEvent}
+      onClick={() => onChange(!dynamax)}
     >
       다이맥스 : {dynamax? "" : "비"}활성화
     </div>

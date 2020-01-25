@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BoxContainer } from '../Container';
 import { NumberInput, Select } from '../Input';
 import Grid from '../Grid';
 import SelectPokemon from '../Pokemon/SelectPokemon';
 import LevelInput from '../Pokemon/LevelInput';
-
-import { findPokemonByName } from '../../pokemon/data/pokedex';
 
 const speedItems = [
   {
@@ -42,7 +40,6 @@ const rankList = [
 .map(n => ({
   name: `${n} 랭크`,
   value: n,
-  selected: !n,
 }));
 
 const natureList = [
@@ -71,68 +68,76 @@ const natureList = [
 
 const PokemonInput = ({
   title,
+  pokemon,
   onChange,
 }) => {
-  const [ nature, setNature ] = useState(0);
-  const [ level, setLevel ] = useState(50);
-  const [ ev, setEV ] = useState();
-  const [ iv, setIV ] = useState();
-  const [ rank, setRank ] = useState(0);
-  const [ item, setItem ] = useState(1);
-  const [ ability, setAbility ] = useState(1);
+  const {
+    base = '',
+    nature = 1,
+    level = 50,
+    ev = '',
+    iv = '',
+    rank = 0,
+    item = 1,
+    ability = 1,
+  } = pokemon || {};
 
-  const setPokemon = (pokemon) => {
-    pokemon = findPokemonByName(pokemon);
-    if (pokemon) onChange(prevState => ({
-      ...prevState,
-      baseStat: pokemon.stat[5],
-    }));
-  };
+  if (!pokemon) onChange({ // 기본값 설정
+    level,
+    rank,
+    item,
+    ability,
+    nature,
+  });
 
-  useEffect(() => {
-    onChange(prevState => ({
-      ...prevState,
-      nature,
-      level,
-      ev,
-      iv,
-      rank,
-      effect: item * ability,
-    }));
-  }, [
-    nature, level, ev, iv, rank, item, ability, onChange
-  ]);
+  const getOnChange = key => value => onChange({ [key]: value });
+  const getNumberOnChange = key => value => onChange({ [key]: +value });
 
   return (
     <BoxContainer>
       <p>{title}</p>
-      <SelectPokemon onChange={setPokemon} />
+      <SelectPokemon value={base} onChange={getOnChange('base')} />
       <Grid column="3:2" gap="1rem">
-        <Select list={natureList} onChange={v => setNature(+v)} />
-        <LevelInput level={level} onChange={setLevel} />
+        <Select
+          list={natureList}
+          value={nature}
+          onChange={getNumberOnChange('nature')}
+        />
+        <LevelInput value={level} onChange={getNumberOnChange('level')} />
       </Grid>
       <Grid column="1:1:1" gap="1rem">
         <NumberInput
           placeholder="노력치"
           min={0}
           max={252}
-          onChange={setEV}
+          value={ev}
+          onChange={getNumberOnChange('ev')}
         />
         <NumberInput
           placeholder="개체값"
           min={0}
           max={31}
-          onChange={setIV}
+          value={iv}
+          onChange={getNumberOnChange('iv')}
         />
         <Select
           label={"랭크"}
           list={rankList}
-          onChange={v => setRank(+v)}
+          value={rank}
+          onChange={getNumberOnChange('rank')}
         />
       </Grid>
       <Grid column="1:1" gap="1rem">
-        <Select list={speedItems} onChange={v => setItem(+v)} />
-        <Select list={speedAbilities} onChange={v => setAbility(+v)} />
+        <Select
+          list={speedItems}
+          value={item}
+          onChange={getNumberOnChange('item')}
+        />
+        <Select
+          list={speedAbilities}
+          value={ability}
+          onChange={getNumberOnChange('ability')}
+        />
       </Grid>
     </BoxContainer>
   );
