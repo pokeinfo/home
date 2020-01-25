@@ -1,0 +1,16 @@
+.button {
+  cursor: pointer;
+  padding: .75rem .5rem;
+  border-radius: .5rem;
+  text-align: center;
+  background: #eee;
+  word-break: keep-all;
+  font-weight: 600;
+
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background: #dcdcdc;
+  }
+}
