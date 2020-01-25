@@ -1,0 +1,1 @@
+{"version":3,"sources":["SpeedResult.module.scss"],"names":[],"mappings":"AAAA,2BACE,wBAAyB,CACzB,kBAAmB,CAFrB,6BAKI,aAAc,CACd,eAAgB","file":"6.ae6e99ca.chunk.css","sourcesContent":[".result {\n  border: 2px solid #dcdcdc;\n  background: #dcdcdc;\n\n  > p {\n    padding: .5rem;\n    background: #fff;\n  }\n}\n"]}
