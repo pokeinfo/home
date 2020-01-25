@@ -6,7 +6,7 @@ import Disqus from 'disqus-react';
 const Community = () => (
   <Container>
     <Title>Pokè Info</Title>
-    <Disqus.DiscussionEmbed shortname="poke-info" />
+    <Disqus.DiscussionEmbed shortname="poke-info" config={{}} />
   </Container>
 );
 
