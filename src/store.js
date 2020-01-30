@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import deepmerge from 'deepmerge';
+import deepMerge from 'deepmerge';
 import isMobileMediaQuery from './util/isMobileMediaQuery';
 
 const defaultState = {
@@ -32,7 +32,7 @@ const reducer = (state, action) => {
     });
 
     case 'IV_CHECKER_POKEMON_UPDATE': return createState({
-      ivChecker: deepmerge(
+      ivChecker: deepMerge(
         state.ivChecker,
         action.newPokemon,
       ),
@@ -45,7 +45,7 @@ const reducer = (state, action) => {
     case 'SPEED_CHECKER_POKEMON_UPDATE': return createState({
       speedChecker: {
         ...state.speedChecker,
-        [action.id]: deepmerge(
+        [action.id]: deepMerge(
           state.speedChecker[action.id],
           action.newPokemon,
         ),
