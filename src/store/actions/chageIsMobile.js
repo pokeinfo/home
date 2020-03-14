@@ -1,7 +1,4 @@
-
-export default (state, { isMobile }) => (
-  {
-    ...state,
-    isMobile,
-  }
-);
+export default (state, { isMobile }) => ({
+  ...state,
+  isMobile,
+});

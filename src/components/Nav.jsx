@@ -1,25 +1,14 @@
-import React from 'react';
-import {
-  Link,
-  withRouter,
-} from 'react-router-dom';
-import Grid from './Grid';
-import { VerticalCenterText } from './Text';
-import classNames from 'classnames';
-import styles from '../scss/components/Nav.module.scss';
+import React from "react";
+import { Link, withRouter } from "react-router-dom";
+import Grid from "./Grid";
+import { VerticalCenterText } from "./Text";
+import classNames from "classnames";
+import styles from "../scss/components/Nav.module.scss";
 
-import {
-  ReactComponent as CommunityIcon,
-} from '../svg/iconmonstr-user-29.svg';
-import {
-  ReactComponent as IVCheckerIcon,
-} from '../svg/iconmonstr-calculator-1.svg';
-import {
-  ReactComponent as SpeedCheckerIcon,
-} from '../svg/iconmonstr-time-19.svg';
-import {
-  ReactComponent as MenuIcon,
-} from '../svg/iconmonstr-menu-1.svg';
+import { ReactComponent as CommunityIcon } from "../svg/iconmonstr-user-29.svg";
+import { ReactComponent as IVCheckerIcon } from "../svg/iconmonstr-calculator-1.svg";
+import { ReactComponent as SpeedCheckerIcon } from "../svg/iconmonstr-time-19.svg";
+import { ReactComponent as MenuIcon } from "../svg/iconmonstr-menu-1.svg";
 
 const iconSize = 30;
 const iconProps = {
@@ -27,31 +16,24 @@ const iconProps = {
   height: iconSize,
 };
 
-const NavItem = ({
-  children,
-  title,
-  to,
-  curruntPathName,
-  closeNav,
-  icon: Icon,
-}) => {
-  const isSamePath = (to === curruntPathName);
+const NavItem = ({ title, to, curruntPathName, closeNav, icon: Icon }) => {
+  const isSamePath = to === curruntPathName;
   const className = classNames({
     [styles.selected]: isSamePath,
   });
-  const RootElement = ({ children }) => isSamePath? (
-    <div className={className}>{children}</div>
-  ) : (
-    <Link to={to} className={className}>{children}</Link>
-  );
+  const RootElement = ({ children }) => {
+    return isSamePath ? (
+      <div className={className}>{children}</div>
+    ) : (
+      <Link to={to} className={className}>
+        {children}
+      </Link>
+    );
+  };
   return (
     <RootElement>
-      <Grid
-        column={`${iconSize}px:3`}
-        gap="1rem"
-        onClick={closeNav}
-      >
-        <Icon fill={isSamePath? "#df1616" : "#323232"} {...iconProps} />
+      <Grid column={`${iconSize}px:3`} gap="1rem" onClick={closeNav}>
+        <Icon fill={isSamePath ? "#df1616" : "#323232"} {...iconProps} />
         <VerticalCenterText>{title}</VerticalCenterText>
       </Grid>
     </RootElement>
@@ -99,7 +81,7 @@ const NavCloseButton = ({ onClick }) => (
   </div>
 );
 
-const NavOpenButton = ({ isOpen, isMobile, onClick }) => {
+const NavOpenButton = ({ isMobile, onClick }) => {
   const className = classNames(styles.navOpenButton, {
     [styles.mobile]: isMobile,
   });
@@ -111,6 +93,4 @@ const NavOpenButton = ({ isOpen, isMobile, onClick }) => {
 };
 
 export default withRouter(Nav);
-export {
-  NavOpenButton,
-};
+export { NavOpenButton };

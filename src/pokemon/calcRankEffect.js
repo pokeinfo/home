@@ -1,5 +1,5 @@
 const calcRankEffect = ({ stat, rank }) => {
-  const effect = ({
+  const effect = {
     "-6": 25,
     "-5": 29,
     "-4": 33,
@@ -13,9 +13,9 @@ const calcRankEffect = ({ stat, rank }) => {
     "4": 300,
     "5": 350,
     "6": 400,
-  })[rank];
+  }[rank];
 
   return Math.floor((effect * stat) / 100);
-}
+};
 
 export default calcRankEffect;

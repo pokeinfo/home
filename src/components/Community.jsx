@@ -1,7 +1,7 @@
-import React from 'react';
-import Container from './Container';
-import Title from './Title';
-import Disqus from 'disqus-react';
+import React from "react";
+import Container from "./Container";
+import Title from "./Title";
+import Disqus from "disqus-react";
 
 const Community = () => (
   <Container maxWidth={650}>

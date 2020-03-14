@@ -1,14 +1,14 @@
-import { connect } from 'react-redux';
-import PokemonInput from '../../components/SpeedChecker/PokemonInput';
+import { connect } from "react-redux";
+import PokemonInput from "../../components/SpeedChecker/PokemonInput";
 
 const mapReduxStateToReactProps = ({ speedChecker }, { id }) => ({
   pokemon: speedChecker[id],
 });
 
 const mapReduxDispatchToReactProps = (dispatch, { id }) => ({
-  onChange: (newPokemon) => {
+  onChange: newPokemon => {
     dispatch({
-      type: 'SPEED_CHECKER_POKEMON_UPDATE',
+      type: "SPEED_CHECKER_POKEMON_UPDATE",
       id,
       newPokemon,
     });
@@ -16,7 +16,7 @@ const mapReduxDispatchToReactProps = (dispatch, { id }) => ({
 
   onClickDelete: () => {
     dispatch({
-      type: 'SPEED_CHECKER_POKEMON_RESET',
+      type: "SPEED_CHECKER_POKEMON_RESET",
       id,
     });
   },
@@ -24,5 +24,5 @@ const mapReduxDispatchToReactProps = (dispatch, { id }) => ({
 
 export default connect(
   mapReduxStateToReactProps,
-  mapReduxDispatchToReactProps,
+  mapReduxDispatchToReactProps
 )(PokemonInput);

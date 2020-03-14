@@ -1,9 +1,9 @@
-import React from 'react';
-import { NumberInput } from '../Input';
+import React from "react";
+import { NumberInput } from "../Input";
 
-import ThreeGrid from './ThreeGrid';
+import ThreeGrid from "./ThreeGrid";
 
-const StatInput = (props) => {
+const StatInput = props => {
   const { StatForm } = StatInput;
   return (
     <div>
@@ -17,30 +17,24 @@ const StatInput = (props) => {
   );
 };
 
-StatInput.StatForm = ({
-  name,
-  type,
-  stat = {},
-  onChange,
-}) => {
-  const setValue = (newValue) => onChange({
-    [ type ]: {
-      ev: 0,
-      ...newValue,
-    },
-  });
+StatInput.StatForm = ({ name, type, stat = {}, onChange }) => {
+  const setValue = newValue => {
+    return onChange({
+      [type]: {
+        ev: 0,
+        ...newValue,
+      },
+    });
+  };
 
-  const {
-    ev = 0,
-    realStat = '',
-  } = stat[type] || {};
+  const { ev = 0, realStat = "" } = stat[type] || {};
 
   const setRealStat = realStat => setValue({ realStat });
   const setEV = ev => setValue({ ev });
 
   return (
     <ThreeGrid>
-      <div style={{ margin: 'auto 0' }}>{name}</div>
+      <div style={{ margin: "auto 0" }}>{name}</div>
       <NumberInput
         placeholder={name + " 실수치"}
         min={1}

@@ -1,17 +1,17 @@
-import React from 'react';
-import classNames from 'classnames';
-import { VerticalCenterText } from '../Text';
+import React from "react";
+import classNames from "classnames";
+import { VerticalCenterText } from "../Text";
 
-import ThreeGrid from './ThreeGrid';
+import ThreeGrid from "./ThreeGrid";
 
-import styles from '../../scss/components/IVChecker/IVResult.module.scss';
+import styles from "../../scss/components/IVChecker/IVResult.module.scss";
 
-import { findPokemonByName } from '../../pokemon/data/pokedex';
-import { findNatureByName } from '../../pokemon/data/nature';
-import calcRealStat from '../../pokemon/calcRealStat';
+import { findPokemonByName } from "../../pokemon/data/pokedex";
+import { findNatureByName } from "../../pokemon/data/nature";
+import calcRealStat from "../../pokemon/calcRealStat";
 
 function getBaseStatFromPokemon(type, pokemon) {
-  const baseStatKey = Array.from('HABCDS').indexOf(type);
+  const baseStatKey = Array.from("HABCDS").indexOf(type);
   const baseStat = pokemon.stat[baseStatKey];
   return baseStat;
 }
@@ -22,24 +22,29 @@ function calcIV(type, pokemon, dynamax, stat, nature, level) {
   const baseStat = getBaseStatFromPokemon(type, pokemon);
   stat = (stat || {})[type] || {};
   const { ev, realStat } = stat;
-  const range = [ ...Array(32).keys() ];
-  const validIVs = !realStat? [] : range.filter(
-    iv => realStat === calcRealStat({
-      pokemonIndex: pokemon.index,
-      type,
-      iv,
-      ev,
-      dynamax,
-      level,
-      baseStat,
-      nature,
-    })
-  );
+  const range = [...Array(32).keys()];
+  const validIVs = !realStat
+    ? []
+    : range.filter(iv => {
+        return (
+          realStat ===
+          calcRealStat({
+            pokemonIndex: pokemon.index,
+            type,
+            iv,
+            ev,
+            dynamax,
+            level,
+            baseStat,
+            nature,
+          })
+        );
+      });
 
   if (!validIVs.length) return defaultMessage;
   const minIV = Math.min(...validIVs);
   const maxIV = Math.max(...validIVs);
-  return (minIV === maxIV)? maxIV : `${minIV}~${maxIV}`;
+  return minIV === maxIV ? maxIV : `${minIV}~${maxIV}`;
 }
 
 function getStatIVFull(type, pokemon, dynamax, stat, nature, level) {
@@ -60,21 +65,11 @@ function getStatIVFull(type, pokemon, dynamax, stat, nature, level) {
   });
 }
 
-const IVResult = ({
-  pokemon,
-  dynamax,
-  stat,
-  nature,
-  level,
-  isMobile,
-}) => {
+const IVResult = ({ pokemon, dynamax, stat, nature, level, isMobile }) => {
   pokemon = findPokemonByName(pokemon);
   nature = findNatureByName(nature);
-  const params = [ pokemon, dynamax, stat, nature, level ];
-  const {
-    ResultGrid,
-    Result,
-  } = IVResult;
+  const params = [pokemon, dynamax, stat, nature, level];
+  const { ResultGrid, Result } = IVResult;
   const props = {
     isMobile,
     params,
@@ -99,11 +94,9 @@ const IVResult = ({
 IVResult.ResultGrid = ({ children, isMobile }) => (
   <ThreeGrid
     isDesktop={!isMobile}
-    className={
-      classNames(styles.resultGrid, {
-        [styles.desktopGrid]: !isMobile,
-      })
-    }
+    className={classNames(styles.resultGrid, {
+      [styles.desktopGrid]: !isMobile,
+    })}
   >
     {children}
   </ThreeGrid>
@@ -111,10 +104,7 @@ IVResult.ResultGrid = ({ children, isMobile }) => (
 
 IVResult.Result = ({ name, type, params, isMobile }) => {
   const { ResultGrid } = IVResult;
-  params = [
-    type,
-    ...params,
-  ];
+  params = [type, ...params];
   return (
     <ResultGrid isMobile={isMobile}>
       <VerticalCenterText>{name}</VerticalCenterText>
@@ -122,6 +112,6 @@ IVResult.Result = ({ name, type, params, isMobile }) => {
       <div>{getStatIVFull(...params)}</div>
     </ResultGrid>
   );
-}
+};
 
 export default IVResult;

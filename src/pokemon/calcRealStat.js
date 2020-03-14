@@ -10,47 +10,32 @@ const calcRealStat = ({
 }) => {
   if (
     // 필수 인자가 없는 경우
-    ![
-      type, level, baseStat, iv, ev,
-    ].every(a => null != a)
-  ) return;
+    ![type, level, baseStat, iv, ev].every(a => null != a)
+  )
+    return;
 
   if (!nature) nature = {};
   switch (type) {
-    case 'H':
+    case "H":
       if (pokemonIndex === 292) return 1;
-      return (dynamax? 2 : 1) * (
-          Math.floor(
-          (level / 100) * (
-            baseStat * 2
-            + iv
-            + Math.floor(ev / 4)
-          )
-        ) + level + 10
+      return (
+        (dynamax ? 2 : 1) *
+        (Math.floor((level / 100) * (baseStat * 2 + iv + Math.floor(ev / 4))) +
+          level +
+          10)
       );
 
-    case 'A':
-    case 'B':
-    case 'C':
-    case 'D':
-    case 'S':
+    case "A":
+    case "B":
+    case "C":
+    case "D":
+    case "S":
       return Math.floor(
         Math.floor(
-          (level / 100) * (
-            baseStat * 2
-            + iv
-            + Math.floor(ev / 4)
-          )
-          + 5
-        ) * (
-          nature.up === type
-            ? 1.1
-            : 1
-        ) * (
-          nature.down === type
-            ? 0.9
-            : 1
-        )
+          (level / 100) * (baseStat * 2 + iv + Math.floor(ev / 4)) + 5
+        ) *
+          (nature.up === type ? 1.1 : 1) *
+          (nature.down === type ? 0.9 : 1)
       );
 
     default:

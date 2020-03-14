@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import LoadingAnimation from './LoadingAnimation';
+import React, { Component } from "react";
+import LoadingAnimation from "./LoadingAnimation";
 
 const loadedModules = {};
 
@@ -32,31 +32,22 @@ class AsyncComponent extends Component {
   }
 
   render() {
-    const {
-      isLoading,
-      component,
-      errorMessage,
-    } = this.state;
-    const LoadedComponent
-      = isLoading
-          ? () => <LoadingAnimation errorMessage={errorMessage} />
-          : component;
+    const { isLoading, component, errorMessage } = this.state;
+    const LoadedComponent = isLoading
+      ? () => <LoadingAnimation errorMessage={errorMessage} />
+      : component;
     return <LoadedComponent />;
   }
 }
 
 const AsyncDefaultComponent = ({ loader }) => (
-  <AsyncComponent loader={
-    async () => {
-      const {
-        default: component,
-      } = await loader;
+  <AsyncComponent
+    loader={async () => {
+      const { default: component } = await loader;
       return component;
-    }
-  } />
+    }}
+  />
 );
 
 export default AsyncComponent;
-export {
-  AsyncDefaultComponent,
-};
+export { AsyncDefaultComponent };

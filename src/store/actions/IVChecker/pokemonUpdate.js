@@ -1,11 +1,6 @@
-import deepMerge from 'deepmerge';
+import deepMerge from "deepmerge";
 
-export default (state, { newPokemon }) => (
-  {
-    ...state,
-    ivChecker: deepMerge(
-      state.ivChecker,
-      newPokemon,
-    ),
-  }
-);
+export default (state, { newPokemon }) => ({
+  ...state,
+  ivChecker: deepMerge(state.ivChecker, newPokemon),
+});

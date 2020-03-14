@@ -1,19 +1,14 @@
-import React from 'react';
-import classNames from 'classnames';
-import styles from '../scss/components/Grid.module.scss';
+import React from "react";
+import classNames from "classnames";
+import styles from "../scss/components/Grid.module.scss";
 
-function createGridStyle({column, row, gap}) {
-  [
-    column,
-    row,
-  ] = [
-    column,
-    row,
-  ].map(
-    value => (value || '').split(':').map(
-      ratio => isNaN(ratio)? ratio : `${ratio}fr`
-    ).join(' ')
-  );
+function createGridStyle({ column, row, gap }) {
+  [column, row] = [column, row].map(value => {
+    return (value || "")
+      .split(":")
+      .map(ratio => (isNaN(ratio) ? ratio : `${ratio}fr`))
+      .join(" ");
+  });
 
   return {
     gridTemplateColumns: column,
@@ -22,14 +17,7 @@ function createGridStyle({column, row, gap}) {
   };
 }
 
-const Grid = ({
-  column,
-  row,
-  gap,
-  style,
-  className,
-  ...rest
-}) => {
+const Grid = ({ column, row, gap, style, className, ...rest }) => {
   rest.className = classNames(styles.grid, className);
   rest.style = {
     ...(style || {}),

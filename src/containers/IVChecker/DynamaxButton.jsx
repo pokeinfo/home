@@ -1,16 +1,14 @@
-import { connect } from 'react-redux';
-import DynamaxButton from '../../components/Pokemon/DynamaxButton';
+import { connect } from "react-redux";
+import DynamaxButton from "../../components/Pokemon/DynamaxButton";
 
-const mapReduxStateToReactProps = ({
-  ivChecker,
-}) => ({
+const mapReduxStateToReactProps = ({ ivChecker }) => ({
   dynamax: ivChecker.dynamax,
 });
 
-const mapReduxDispatchToReactProps = (dispatch) => ({
-  onChange: (dynamax) => {
+const mapReduxDispatchToReactProps = dispatch => ({
+  onChange: dynamax => {
     dispatch({
-      type: 'IV_CHECKER_POKEMON_UPDATE',
+      type: "IV_CHECKER_POKEMON_UPDATE",
       newPokemon: { dynamax },
     });
   },
@@ -18,5 +16,5 @@ const mapReduxDispatchToReactProps = (dispatch) => ({
 
 export default connect(
   mapReduxStateToReactProps,
-  mapReduxDispatchToReactProps,
+  mapReduxDispatchToReactProps
 )(DynamaxButton);

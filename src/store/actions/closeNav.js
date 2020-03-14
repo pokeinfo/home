@@ -1,7 +1,4 @@
-
-export default (state) => (
-  {
-    ...state,
-    isNavOpen: false,
-  }
-);
+export default state => ({
+  ...state,
+  isNavOpen: false,
+});

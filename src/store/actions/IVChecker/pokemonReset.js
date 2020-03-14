@@ -1,7 +1,4 @@
-
-export default (state, { newPokemon }) => (
-  {
-    ...state,
-    ivChecker: {},
-  }
-);
+export default (state, { newPokemon }) => ({
+  ...state,
+  ivChecker: {},
+});

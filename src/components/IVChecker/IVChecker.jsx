@@ -1,23 +1,23 @@
-import React from 'react';
-import Grid from '../Grid';
-import Container, { BoxContainer } from '../Container';
-import Title from '../Title';
-import { CenteredText } from '../Text';
+import React from "react";
+import Grid from "../Grid";
+import Container, { BoxContainer } from "../Container";
+import Title from "../Title";
+import { CenteredText } from "../Text";
 
-import ThreeGrid from './ThreeGrid';
-import SelectPokemon from '../../containers/IVChecker/SelectPokemon';
-import SelectNature from '../../containers/IVChecker/SelectNature';
-import LevelInput from '../../containers/IVChecker/LevelInput';
-import DynamaxButton from '../../containers/IVChecker/DynamaxButton';
-import StatInput from '../../containers/IVChecker/StatInput';
-import Buttons from '../../containers/IVChecker/Buttons';
-import IVResult from '../../containers/IVChecker/IVResult';
+import ThreeGrid from "./ThreeGrid";
+import SelectPokemon from "../../containers/IVChecker/SelectPokemon";
+import SelectNature from "../../containers/IVChecker/SelectNature";
+import LevelInput from "../../containers/IVChecker/LevelInput";
+import DynamaxButton from "../../containers/IVChecker/DynamaxButton";
+import StatInput from "../../containers/IVChecker/StatInput";
+import Buttons from "../../containers/IVChecker/Buttons";
+import IVResult from "../../containers/IVChecker/IVResult";
 
 const IVChecker = ({ isMobile }) => {
   return (
     <Container>
       <Title>개체값 계산기</Title>
-      <Grid column={isMobile? "1" : "1:1"} gap={isMobile? "0" : "1rem"}>
+      <Grid column={isMobile ? "1" : "1:1"} gap={isMobile ? "0" : "1rem"}>
         <BoxContainer>
           <div>
             <SelectPokemon />
@@ -32,7 +32,7 @@ const IVChecker = ({ isMobile }) => {
               <CenteredText>노력치</CenteredText>
             </ThreeGrid>
             <StatInput />
-            <br/>
+            <br />
             <Buttons />
           </div>
         </BoxContainer>

@@ -1,14 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-  HashRouter as Router,
-} from 'react-router-dom';
-import { Provider } from 'react-redux';
-import App from './components/App';
-import store from './store/store';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { HashRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import App from "./components/App";
+import store from "./store/store";
+import * as serviceWorker from "./serviceWorker";
 
-import './scss/global/master.scss';
+import "./scss/global/master.scss";
 
 const Root = () => (
   <Provider store={store}>
@@ -18,5 +16,5 @@ const Root = () => (
   </Provider>
 );
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(<Root />, document.getElementById("root"));
 serviceWorker.unregister();

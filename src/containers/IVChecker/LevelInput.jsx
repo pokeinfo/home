@@ -1,16 +1,14 @@
-import { connect } from 'react-redux';
-import LevelInput from '../../components/Pokemon/LevelInput';
+import { connect } from "react-redux";
+import LevelInput from "../../components/Pokemon/LevelInput";
 
-const mapReduxStateToReactProps = ({
-  ivChecker,
-}) => ({
-  value: (ivChecker.level || ''),
+const mapReduxStateToReactProps = ({ ivChecker }) => ({
+  value: ivChecker.level || "",
 });
 
-const mapReduxDispatchToReactProps = (dispatch) => ({
-  onChange: (level) => {
+const mapReduxDispatchToReactProps = dispatch => ({
+  onChange: level => {
     dispatch({
-      type: 'IV_CHECKER_POKEMON_UPDATE',
+      type: "IV_CHECKER_POKEMON_UPDATE",
       newPokemon: { level },
     });
   },
@@ -18,5 +16,5 @@ const mapReduxDispatchToReactProps = (dispatch) => ({
 
 export default connect(
   mapReduxStateToReactProps,
-  mapReduxDispatchToReactProps,
+  mapReduxDispatchToReactProps
 )(LevelInput);
